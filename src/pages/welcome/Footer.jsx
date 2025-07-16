@@ -7,6 +7,8 @@ import {
 import { Link } from "react-router-dom";
 
 function Footer() {
+  const linkStyle = "text-gray-400 hover:text-white font-sm text-sm sm:font-medium";
+
   return (
     <footer className="text-gray-300 py-16 px-4">
       <div className="max-w-7xl mx-auto flex flex-col items-center">
@@ -43,48 +45,28 @@ function Footer() {
 
         {/* Navigation Links */}
         <nav className="flex flex-wrap justify-center gap-6 mb-8">
-          <Link
-            to="/"
-            className="text-gray-400 hover:text-white font-medium"
-          >
+          <Link to="/" className={linkStyle}>
             Home
           </Link>
-          <Link
-            to="/about"
-            className="text-gray-400 hover:text-white font-medium"
-          >
+          <Link to="/about" className={linkStyle}>
             About
           </Link>
-          <Link
-            to="/support"
-            className="text-gray-400 hover:text-white font-medium"
-          >
+          <Link to="/support" className={linkStyle}>
             Support
           </Link>
-          <Link
-            to="/contact"
-            className="text-gray-400 hover:text-white font-medium"
-          >
+          <Link to="/contact" className={linkStyle}>
             Contact Us
           </Link>
-          <Link
-            to="/privacy"
-            className="text-gray-400 hover:text-white  font-medium"
-          >
+          <Link to="/privacy" className={linkStyle}>
             Privacy Policy
           </Link>
-          <Link
-            to="/terms"
-            className="text-gray-400 hover:text-white  font-medium"
-          >
+          <Link to="/terms" className={linkStyle}>
             Terms of Service
           </Link>
         </nav>
 
-        {/* Divider */}
         <div className="w-full border-t border-gray-800 mb-8"></div>
 
-        {/* Copyright */}
         <div className="text-center">
           <p className="text-gray-500 text-sm">
             © {new Date().getFullYear()} TechTinder. All rights reserved.

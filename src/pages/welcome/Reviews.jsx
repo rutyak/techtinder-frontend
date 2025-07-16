@@ -13,7 +13,7 @@ import "swiper/css/scrollbar";
 import "swiper/css/autoplay";
 import Card from "./Card";
 
-function CustomSwiper() {
+function Reviews() {
   let reviews = [
     {
       id: 1,
@@ -81,7 +81,7 @@ function CustomSwiper() {
   ];
 
   return (
-    <div className="px-4 py-8 max-w-[1400px] mx-auto">
+    <div className="px-4 py-8 max-w-[1400px] mx-auto z-10">
       <Swiper
         modules={[Autoplay]}
         spaceBetween={20}
@@ -108,4 +108,4 @@ function CustomSwiper() {
   );
 }
 
-export default CustomSwiper;
+export default Reviews;

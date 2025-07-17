@@ -21,7 +21,7 @@ function Herosection({ isScrollingUp, setIsScrollingUp }) {
 
   return (
     <div
-      className={`h-[40vh] md:h-[60vh] lg:h-[90vh] flex flex-col items-center px-4 pt-32 md:pt-45 lg:pt-56 ${
+      className={`h-[40vh] md:h-[60vh] lg:h-[90vh] flex flex-col items-center px-4 pt-32 md:pt-45 lg:pt-72 ${
         isScrollingUp ? "disappear-animation" : ""
       }`}
     >

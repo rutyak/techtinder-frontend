@@ -81,7 +81,7 @@ function Reviews() {
   ];
 
   return (
-    <div className="px-4 py-8 max-w-[1400px] mx-auto z-10">
+    <div className="px-4 py-8 max-w-[1400px] mx-auto relative">
       <Swiper
         modules={[Autoplay]}
         spaceBetween={20}

@@ -4,9 +4,13 @@ import Footer from "./Footer";
 import Header from "./Header";
 import Herosection from "./Herosection";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 function Welcome() {
   const [isScrollingUp, setIsScrollingUp] = useState(false);
+  
+  const userData = useSelector((state) => state.users?.users);
+  console.log("userData: ", userData);
 
   return (
     <div

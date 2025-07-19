@@ -12,9 +12,6 @@ function Login() {
   const [formData, setFormData] = useState({});
   const modelRef = useRef(null);
 
-  const user = useSelector((store) => store.user.user);
-  console.log("user from redux: ", user);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -36,6 +33,7 @@ function Login() {
     const handleScroll = () => {
       setLoginToggle(false);
     };
+
     document.addEventListener("mousedown", handleClickOutside);
     document.addEventListener("keydown", handleEscapeKey);
     document.addEventListener("scroll", handleScroll);
@@ -64,9 +62,11 @@ function Login() {
         withCredentials: true,
       });
 
-      toast.success(res.data.message);
-      if (!res.data.user) {
-        dispatch(addUser(res.data.user));
+      toast.success(res.data?.message);
+      console.log("res.data.user: ", res.data?.user);
+
+      if (res.data?.user) {
+        dispatch(addUser(res.data?.user));
       }
 
       setLoginToggle(false);
@@ -81,7 +81,7 @@ function Login() {
   return (
     <>
       <button
-        className="rounded-full z-40 py-1 px-3 md:py-2 md:px-6 text-md md:text-lg bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white font-semibold transition-all duration-300 shadow-lg hover:shadow-blue-500/30"
+        className="rounded-full py-1 px-3 md:py-2 md:px-6 text-md md:text-lg bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white font-semibold transition-all duration-300 shadow-lg hover:shadow-blue-500/30"
         onClick={(e) => setLoginToggle(!loginToggle)}
       >
         Login

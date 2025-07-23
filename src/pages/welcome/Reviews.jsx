@@ -98,8 +98,8 @@ function Reviews() {
         loop={true}
         className="pb-12"
       >
-        {reviews.map((review) => (
-          <SwiperSlide key={review.id}>
+        {reviews.map((review, index) => (
+          <SwiperSlide key={index}>
             <Card {...review} />
           </SwiperSlide>
         ))}

@@ -1,5 +1,6 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import userReducer from "./userSlice";
+import feedReducer from "./feedSlice";
 import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore } from "redux-persist";
 
@@ -10,6 +11,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   users: userReducer,
+  feeds: feedReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

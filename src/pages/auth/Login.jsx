@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { addUser } from "../../utils/userSlice";
+import { useNavigate } from "react-router-dom";
 const base_url = import.meta.env.VITE_APP_BACKEND_URL;
 
 function Login() {
@@ -10,9 +11,18 @@ function Login() {
   const [loginToggle, setLoginToggle] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({});
+  const [error, setError] = useState("");
   const modelRef = useRef(null);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    let userExists = document.cookie;
+    if (userExists) {
+      navigate("/dashboard", { replace: true });
+    }
+  }, []);
 
   useEffect(() => {
     if (!loginToggle) return;
@@ -50,11 +60,13 @@ function Login() {
       ...formData,
       [e.target.name]: e.target.value,
     });
+    setError(""); // Clear error when user starts typing
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+    setError("");
 
     try {
       const endpoint = loginSignupToggle === "login" ? "login" : "signup";
@@ -63,16 +75,18 @@ function Login() {
       });
 
       toast.success(res.data?.message);
-      console.log("res.data.user: ", res.data?.user);
 
       if (res.data?.user) {
         dispatch(addUser(res.data?.user));
       }
 
       setLoginToggle(false);
+      navigate(loginSignupToggle === "login" ? "/dashboard" : "/");
       setFormData({});
     } catch (error) {
-      toast.error(error.response?.data?.message || "Something went wrong");
+      const errorMsg = error.response?.data?.message || "Something went wrong";
+      toast.error(errorMsg);
+      setError(errorMsg);
     } finally {
       setIsLoading(false);
     }
@@ -99,6 +113,13 @@ function Login() {
                 : "Connect with us 🤝"}
             </h2>
 
+            {/* Error message displayed prominently at the top */}
+            {error && (
+              <div className="mb-4 p-2 bg-red-100 text-red-600 text-sm rounded-md text-center">
+                {error}
+              </div>
+            )}
+
             <div className="flex items-center justify-center gap-3 mb-6">
               <button
                 className={`w-1/2 py-2 rounded-lg font-medium transition-all duration-200 ${
@@ -106,7 +127,10 @@ function Login() {
                     ? "bg-blue-600 text-white shadow-md"
                     : "bg-gray-200 text-gray-700 hover:bg-blue-50"
                 }`}
-                onClick={() => setLoginSignupToggle("login")}
+                onClick={() => {
+                  setLoginSignupToggle("login");
+                  setError("");
+                }}
               >
                 Login
               </button>
@@ -116,7 +140,10 @@ function Login() {
                     ? "bg-blue-600 text-white shadow-md"
                     : "bg-gray-200 text-gray-700 hover:bg-blue-50"
                 }`}
-                onClick={() => setLoginSignupToggle("signup")}
+                onClick={() => {
+                  setLoginSignupToggle("signup");
+                  setError("");
+                }}
               >
                 Signup
               </button>
@@ -141,7 +168,7 @@ function Login() {
                     onChange={handleChanges}
                     required
                   />
-                  <div className="text-sm text-blue-500 text-right mt-1 ml-[3px]">
+                  <div className="text-sm text-blue-500 text-right mt-1">
                     Forget Password?
                   </div>
                 </>
@@ -181,10 +208,9 @@ function Login() {
                   />
                 </>
               )}
-
               <button
                 type="submit"
-                className="w-full py-2 text-white rounded-lg font-medium bg-blue-600 hover:bg-blue-700 transition-all duration-200"
+                className="w-full py-2 text-white rounded-lg font-medium bg-blue-600 hover:bg-blue-700 transition-all duration-200 disabled:bg-blue-400"
                 disabled={isLoading}
               >
                 {isLoading
@@ -200,7 +226,10 @@ function Login() {
                   Don't have an account?{" "}
                   <span
                     className="text-blue-600 cursor-pointer hover:underline"
-                    onClick={() => setLoginSignupToggle("signup")}
+                    onClick={() => {
+                      setLoginSignupToggle("signup");
+                      setError("");
+                    }}
                   >
                     Signup
                   </span>
@@ -210,7 +239,10 @@ function Login() {
                   Already have an account?{" "}
                   <span
                     className="text-blue-500 cursor-pointer hover:underline"
-                    onClick={() => setLoginSignupToggle("login")}
+                    onClick={() => {
+                      setLoginSignupToggle("login");
+                      setError("");
+                    }}
                   >
                     Login
                   </span>

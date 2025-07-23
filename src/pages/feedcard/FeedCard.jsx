@@ -2,9 +2,14 @@ import { RiCloseLargeFill } from "react-icons/ri";
 import { GoStarFill } from "react-icons/go";
 import { BiSolidLike } from "react-icons/bi";
 import boysImage from "../../assets/boy.jpg";
-import { BsArrowLeftCircle } from "react-icons/bs";
-import { FiArrowDownCircle, FiArrowUpCircle } from "react-icons/fi";
-import { LuCircleArrowRight } from "react-icons/lu";
+import { IoMdStarOutline } from "react-icons/io";
+import {
+  LuArrowLeft,
+  LuArrowRight,
+  LuArrowUp,
+  LuArrowDown,
+} from "react-icons/lu";
+import { PiFireFill } from "react-icons/pi";
 import { useState } from "react";
 
 function FeedCard() {
@@ -13,7 +18,7 @@ function FeedCard() {
 
   return (
     <div className="h-screen flex flex-col items-center justify-center gap-4 bg-gray-100">
-      {/* Image Card */}
+      <PiFireFill className="absolute top-3 text-3xl items-center mt-3 text-gray-300" />
       <div className="flex flex-col items-center gap-3">
         <div className="relative transition-transform duration-300 hover:-translate-y-1">
           <div className="flex flex-col">
@@ -60,22 +65,26 @@ function FeedCard() {
         </div>
       </div>
 
-      <div className="instructions flex flex-wrap items-center justify-center gap-5">
+      <div className="absolute bottom-6 flex flex-wrap justify-center gap-18 items-center text-gray-300">
         <div className="flex items-center gap-2">
-          <BsArrowLeftCircle className="text-sm"/>
+          <LuArrowLeft />
           <div className="text-sm">NOPE</div>
         </div>
         <div className="flex items-center gap-2">
-          <LuCircleArrowRight />
-          <div>LIKE</div>
+          <LuArrowRight />
+          <div className="text-sm">LIKE</div>
         </div>
         <div className="flex items-center gap-2">
-          <FiArrowUpCircle />
-          <div>SEE PROFILE</div>
+          <LuArrowUp />
+          <div className="text-sm">SEE PROFILE</div>
         </div>
         <div className="flex items-center gap-2">
-          <FiArrowDownCircle />
-          <div>CLOSE PROFILE</div>
+          <LuArrowDown />
+          <div className="text-sm">CLOSE PROFILE</div>
+        </div>
+        <div className="flex items-center gap-2">
+          <IoMdStarOutline />
+          <div className="text-sm">Super Like</div>
         </div>
       </div>
     </div>

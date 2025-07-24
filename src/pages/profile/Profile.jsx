@@ -5,15 +5,18 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { addUser } from "../../utils/userSlice";
+import SkillTags from "./SkillTags";
 
 const base_url = import.meta.env.VITE_APP_BACKEND_URL;
 
 const Profile = () => {
   const user = useSelector((state) => state.user);
-
+  
   const dispatch = useDispatch();
 
   const [showPasswordFields, setShowPasswordFields] = useState(false);
+  const [imagePreview, setImagePreview] = useState("");
+  const [profileImageFile, setProfileImageFile] = useState();
 
   const [formData, setFormData] = useState({
     firstname: user.firstname,
@@ -26,6 +29,14 @@ const Profile = () => {
 
   const [isEditing, setIsEditing] = useState(false);
 
+  function handleImageUpload(e) {
+    let file = e.target.files[0];
+    if (file) {
+      setImagePreview(URL.createObjectURL(file));
+      setProfileImageFile(file);
+    }
+  }
+
   function handleChange(e) {
     setFormData({
       ...formData,
@@ -34,13 +45,26 @@ const Profile = () => {
   }
 
   async function handleProfileEdit() {
-    console.log("Profile edit clicked");
-    console.log("formdata: ", formData);
 
     try {
-      const res = await axios.patch(base_url + "/profile/edit", formData, {
-        withCredentials: true,
-      });
+      const imageFormData = new FormData();
+      imageFormData.append("profileImage", profileImageFile);
+
+      const imageRes = await axios.post(
+        base_url + "/upload/image",
+        imageFormData,
+        {
+          withCredentials: true,
+        }
+      );
+
+      const res = await axios.patch(
+        base_url + "/profile/edit",
+        { ...formData, imageurl: imageRes.data.imageurl },
+        {
+          withCredentials: true,
+        }
+      );
 
       if (res.status === 200) {
         toast.success(res?.data?.message);
@@ -91,7 +115,7 @@ const Profile = () => {
       <div className="flex flex-col md:flex-row gap-8">
         <div className="w-full md:w-1/3 flex flex-col items-center">
           <img
-            src={user?.imageurl}
+            src={imagePreview || `${base_url}/uploads/${user?.imageurl}`}
             alt="Profile"
             className="w-48 h-48 rounded-full object-cover border-4 border-blue-100 mb-4"
           />
@@ -101,7 +125,13 @@ const Profile = () => {
                 <span className="flex items-center gap-2">
                   Upload Profile Photo
                 </span>
-                <input type="file" className="hidden" />
+                <input
+                  type="file"
+                  accept="image/*"
+                  name="profileImage"
+                  className="hidden"
+                  onChange={handleImageUpload}
+                />
               </label>
             </div>
           )}
@@ -195,12 +225,11 @@ const Profile = () => {
               Skills
             </label>
             {isEditing ? (
-              <div className="space-y-2">
-                <input
-                  type="text"
-                  className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
-                  placeholder="e.g., Programming or Microsoft Office"
-                />
+              // <SkillTags />
+              <div className="flex flex-wrap gap-2">
+                <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">
+                  Sample Skill
+                </span>
               </div>
             ) : (
               <div className="flex flex-wrap gap-2">

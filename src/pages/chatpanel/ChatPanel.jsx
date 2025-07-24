@@ -13,8 +13,7 @@ import { removeUser } from "../../utils/userSlice";
 const base_url = import.meta.env.VITE_APP_BACKEND_URL;
 
 function ChatPanel({ setIsProfileOpen }) {
-  const user = useSelector((state) => state.users);
-  console.log("user: ", user);
+  const user = useSelector((state) => state.user);
 
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
@@ -42,7 +41,6 @@ function ChatPanel({ setIsProfileOpen }) {
         {},
         { withCredentials: true }
       );
-      console.log("res: ", res);
       dispatch(removeUser());
       if (res.status === 200) {
         toast.success(res.data.message);

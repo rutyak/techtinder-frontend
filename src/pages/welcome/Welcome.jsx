@@ -10,7 +10,6 @@ function Welcome() {
   const [isScrollingUp, setIsScrollingUp] = useState(false);
   
   const userData = useSelector((state) => state.users?.users);
-  console.log("userData: ", userData);
 
   return (
     <div

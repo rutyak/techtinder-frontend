@@ -60,7 +60,7 @@ function Login() {
       ...formData,
       [e.target.name]: e.target.value,
     });
-    setError(""); // Clear error when user starts typing
+    setError(""); 
   };
 
   const handleSubmit = async (e) => {
@@ -113,7 +113,6 @@ function Login() {
                 : "Connect with us 🤝"}
             </h2>
 
-            {/* Error message displayed prominently at the top */}
             {error && (
               <div className="mb-4 p-2 bg-red-100 text-red-600 text-sm rounded-md text-center">
                 {error}

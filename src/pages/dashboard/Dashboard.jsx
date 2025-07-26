@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import ChatPanel from "../chatpanel/ChatPanel";
-import FeedCard from "../feedcard/FeedCard";
+import FeedCard from "../../components/FeedCard";
 import { useEffect, useState } from "react";
 import Profile from "../profile/Profile";
 import { useDispatch, useSelector } from "react-redux";
@@ -68,7 +68,23 @@ function Dashboard() {
     <div className="flex items-center">
       <ChatPanel setIsProfileOpen={setIsProfileOpen} />
 
-      <div className="flex-1">{isProfileOpen ? <Profile /> : <FeedCard />}</div>
+      <div className="flex-1">
+        {isProfileOpen ? (
+          <Profile />
+        ) : (
+          <FeedCard
+            profile={{
+              name: "Rutik Khandekar",
+              age: 24,
+              job: "Full Stack Developer",
+              distance: 33,
+              image: "/assets/boy.jpg",
+            }}
+            showActions={true}
+            showLabels={true}
+          />
+        )}
+      </div>
     </div>
   );
 }

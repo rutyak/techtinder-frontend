@@ -6,6 +6,8 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { addUser } from "../../utils/userSlice";
 import FeedCard from "../../components/FeedCard";
+import SkillTags from "./SkillTags";
+import ChangePassword from "./ChangePassword";
 
 const base_url = import.meta.env.VITE_APP_BACKEND_URL;
 
@@ -17,6 +19,7 @@ const Profile = () => {
   const [imagePreview, setImagePreview] = useState("");
   const [profileImageFile, setProfileImageFile] = useState();
   const [showPasswordFields, setShowPasswordFields] = useState(false);
+  const [tags, setTags] = useState(["HTML", "CSS", "JS"]);
 
   const [formData, setFormData] = useState({
     firstname: user.firstname,
@@ -53,7 +56,7 @@ const Profile = () => {
 
       const res = await axios.patch(
         `${base_url}/profile/edit`,
-        { ...formData, imageurl: imageRes?.data?.imageurl },
+        { ...formData, imageurl: imageRes?.data?.imageurl, skills: tags },
         { withCredentials: true }
       );
 
@@ -69,7 +72,8 @@ const Profile = () => {
   return (
     <div className="w-full max-w-7xl mx-auto px-6 py-6 bg-gray-100 h-[100vh]">
       <div className="flex flex-col lg:flex-row h-full gap-6">
-        <div className="w-full lg:w-1/2 bg-white rounded-lg shadow-md p-6">
+        {/* profile */}
+        <div className="w-full lg:w-1/2 bg-white rounded-lg shadow-md p-6 overflow-auto custom-scrollbar">
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-2xl font-bold text-gray-800">My Profile</h2>
             {!isEditing ? (
@@ -104,7 +108,7 @@ const Profile = () => {
             <img
               src={imagePreview || `${base_url}/uploads/${user?.imageurl}`}
               alt="Profile"
-              className="w-40 h-40 rounded-full object-cover border-4 border-blue-100 mb-4"
+              className="w-36 h-36 rounded-full object-cover border-4 border-blue-100 mb-4"
             />
             {isEditing && (
               <label className="cursor-pointer px-4 py-2 border rounded-lg text-blue-500 border-blue-500 hover:bg-blue-50">
@@ -146,41 +150,36 @@ const Profile = () => {
           </div>
 
           {!isEditing && (
-            <div className="mt-6">
-              <label className="text-sm text-gray-600">Password</label>
-              <div className="flex justify-between items-center bg-gray-50 p-2 rounded">
-                <p className="text-gray-400">••••••••</p>
-                <button
-                  onClick={() => setShowPasswordFields(!showPasswordFields)}
-                  className="text-sm text-white bg-blue-500 px-3 py-1 rounded hover:bg-blue-600"
-                >
-                  {showPasswordFields ? "Cancel" : "Change"}
-                </button>
-              </div>
-            </div>
+            <ChangePassword
+              showPasswordFields={showPasswordFields}
+              setShowPasswordFields={setShowPasswordFields}
+            />
           )}
 
-          {showPasswordFields && (
-            <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
-              <input
-                type="password"
-                placeholder="New Password"
-                className="p-2 border rounded"
-              />
-              <input
-                type="password"
-                placeholder="Confirm Password"
-                className="p-2 border rounded"
-              />
-              <div className="md:col-span-2">
-                <button className="w-full bg-green-500 text-white p-2 rounded hover:bg-green-600">
-                  Save Password
-                </button>
+          {isEditing ? (
+            <SkillTags tags={tags} setTags={setTags} />
+          ) : (
+            <div className="mt-6">
+              <label className="block text-sm text-gray-600 mb-2">Skills</label>
+              <div className="flex flex-wrap gap-2">
+                {user.skills && user.skills.length > 0 ? (
+                  user.skills.map((skill, index) => (
+                    <span
+                      key={index}
+                      className="bg-blue-100 text-blue-800 px-2 py-1 text-sm rounded-full"
+                    >
+                      #{skill}
+                    </span>
+                  ))
+                ) : (
+                  <p className="text-gray-400 text-sm">No skills added</p>
+                )}
               </div>
             </div>
           )}
         </div>
 
+        {/* feed card */}
         <div className="w-full lg:w-1/2 rounded-lg p-6 flex justify-center items-center">
           <FeedCard
             profile={{

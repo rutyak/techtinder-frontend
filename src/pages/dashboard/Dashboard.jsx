@@ -25,7 +25,6 @@ function Dashboard() {
       .split(";")
       .find((row) => row.startsWith("jwtToken="))
       ?.split("=")[1];
-    console.log("original token: ", token);
 
     if (!token) {
       navigate("/", { replace: true });
@@ -34,9 +33,6 @@ function Dashboard() {
     try {
       let decoded = jwtDecode(token);
       let currentTime = Date.now() / 1000;
-      console.log("date.now", Date.now());
-      console.log("currentTime: ", currentTime);
-      console.log("decoded: ", decoded.exp);
 
       if (decoded.exp < currentTime) {
         navigate("/", { replace: true });

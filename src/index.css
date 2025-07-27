@@ -18,3 +18,16 @@
 .disappear-animation {
   animation: fadeOutUp 0.5s ease-out forwards;
 }
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #5e8ad1; /* Tailwind blue-500 */
+}

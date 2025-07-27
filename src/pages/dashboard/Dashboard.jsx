@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { addFeeds } from "../../utils/feedSlice";
 import { jwtDecode } from "jwt-decode";
+import boyImage from "../../assets/dhanya.jpg";
 
 const base_url = import.meta.env.VITE_APP_BACKEND_URL;
 
@@ -68,17 +69,17 @@ function Dashboard() {
     <div className="flex items-center">
       <ChatPanel setIsProfileOpen={setIsProfileOpen} />
 
-      <div className="flex-1">
+      <div className="flex-1 h-screen flex items-center justify-center bg-gray-100">
         {isProfileOpen ? (
           <Profile />
         ) : (
           <FeedCard
             profile={{
-              name: "Rutik Khandekar",
+              name: "Dhanya Takalkar",
               age: 24,
-              job: "Full Stack Developer",
+              job: "Designer",
               distance: 33,
-              image: "/assets/boy.jpg",
+              image: boyImage,
             }}
             showActions={true}
             showLabels={true}

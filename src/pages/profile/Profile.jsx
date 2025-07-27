@@ -41,18 +41,19 @@ const Profile = () => {
 
   const handleProfileEdit = async () => {
     try {
-      const imageFormData = new FormData();
-      imageFormData.append("profileImage", profileImageFile);
+      let imageRes = null;
+      if (profileImageFile) {
+        const imageFormData = new FormData();
+        imageFormData.append("profileImage", profileImageFile);
 
-      const imageRes = await axios.post(
-        `${base_url}/upload/image`,
-        imageFormData,
-        { withCredentials: true }
-      );
+        imageRes = await axios.post(`${base_url}/upload/image`, imageFormData, {
+          withCredentials: true,
+        });
+      }
 
       const res = await axios.patch(
         `${base_url}/profile/edit`,
-        { ...formData, imageurl: imageRes.data.imageurl },
+        { ...formData, imageurl: imageRes?.data?.imageurl },
         { withCredentials: true }
       );
 
@@ -66,9 +67,8 @@ const Profile = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-6 py-6 bg-gray-100 h-[100vh]">
+    <div className="w-full max-w-7xl mx-auto px-6 py-6 bg-gray-100 h-[100vh]">
       <div className="flex flex-col lg:flex-row h-full gap-6">
-        {/* Left: Profile Form */}
         <div className="w-full lg:w-1/2 bg-white rounded-lg shadow-md p-6">
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-2xl font-bold text-gray-800">My Profile</h2>
@@ -181,13 +181,15 @@ const Profile = () => {
           )}
         </div>
 
-        {/* Right: FeedCard Preview */}
-        <div className="w-full lg:w-1/2 rounded-lg shadow-md p-6 flex justify-center items-start">
+        <div className="w-full lg:w-1/2 rounded-lg p-6 flex justify-center items-center">
           <FeedCard
             profile={{
-              name: `${user.firstname} ${user.lastname}`,
-              age: user.age,
-              job: user.skills || "Not specified",
+              name:
+                formData.firstname && formData.lastname
+                  ? `${formData.firstname} ${formData.lastname}`
+                  : `${user.firstname} ${user.lastname}`,
+              age: formData.age || user.age,
+              job: formData.skills || user.skills || "Not specified",
               distance: 0,
               image: imagePreview || `${base_url}/uploads/${user?.imageurl}`,
             }}

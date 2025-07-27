@@ -1,4 +1,3 @@
-// src/components/FeedCard.jsx
 import { useState } from "react";
 import { RiCloseLargeFill } from "react-icons/ri";
 import { GoStarFill } from "react-icons/go";
@@ -12,96 +11,93 @@ import {
 } from "react-icons/lu";
 import { PiFireFill } from "react-icons/pi";
 
-const FeedCard = ({
-  profile = {},
-  showActions = true,
-  showLabels = true,
-}) => {
-  const {
-    name = "Unknown User",
-    age = "--",
-    job = "No job info",
-    distance = "--",
-    image = "",
-  } = profile;
+const FeedCard = ({ profile, showActions = true, showLabels = true }) => {
+  const { name, age, job, distance, image } = profile;
 
   const [isLiked, setIsLiked] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
 
   return (
-    <div className="relative flex flex-col items-center justify-center gap-4">
-      <PiFireFill className="absolute top-3 text-3xl text-gray-300" />
-
-      <div className="flex flex-col items-center gap-3">
-        {/* Profile Card Image */}
-        <div className="relative transition-transform duration-300 hover:-translate-y-1">
-          <div className="flex flex-col">
+    <>
+      { showLabels && <PiFireFill className="absolute top-4 text-4xl text-gray-300 opacity-70" />}
+      <div className="relative flex flex-col items-center justify-center gap-6 px-4">
+        <div className="flex flex-col items-center gap-4">
+          <div className="relative group transition-transform duration-300 hover:-translate-y-1">
             <img
               src={image}
               alt={name}
-              className="relative h-[360px] w-[300px] object-cover rounded-xl shadow-lg border-2 border-white/10"
+              className="h-[360px] w-[300px] object-cover rounded-2xl shadow-2xl border border-gray-700"
             />
-            <div className="absolute left-3 bottom-3 text-white">
-              <h3 className="font-bold text-xl">{name}</h3>
-              <div className="font-semibold text-xs">{distance}km Away, {age}</div>
-              <div className="font-semibold text-xs">{job}</div>
+
+            <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-black/70 via-black/40 to-transparent" />
+
+            <div className="absolute bottom-4 left-4 z-10 text-white drop-shadow">
+              <h3 className="font-extrabold text-2xl">{name}</h3>
+              <div className="font-medium text-sm opacity-90">
+                {distance} km away · {age} yrs
+              </div>
+              <div className="font-semibold text-sm opacity-90">{job}</div>
             </div>
           </div>
-          <div className="absolute inset-0 rounded-xl bg-gradient-to-b from-transparent to-black/20 pointer-events-none" />
-        </div>
 
-        {/* Like / Favorite / Close Buttons */}
-        {showActions && (
-          <div className="flex gap-6 p-3 rounded-full backdrop-blur-sm">
-            <button className="p-2 rounded-full bg-red-500 text-white transition-all duration-200 hover:scale-125 active:scale-100">
-              <RiCloseLargeFill className="text-xl" />
-            </button>
-            <button
-              onClick={() => setIsFavorite(!isFavorite)}
-              className={`p-2 rounded-full bg-yellow-500 text-white transition-all duration-200 hover:scale-125 active:scale-100 ${
-                isFavorite ? "text-yellow-200 scale-110" : ""
-              }`}
-            >
-              <GoStarFill className="text-xl" />
-            </button>
-            <button
-              onClick={() => setIsLiked(!isLiked)}
-              className={`p-2 rounded-full bg-blue-500 text-white transition-all duration-200 hover:scale-125 active:scale-100 ${
-                isLiked ? "text-blue-400 scale-110" : ""
-              }`}
-            >
-              <BiSolidLike className="text-xl" />
-            </button>
-          </div>
-        )}
+          {showActions && (
+            <div className="flex gap-8 p-3 rounded-full">
+              <button
+                title="Nope"
+                className="p-3 rounded-full bg-red-600 text-white hover:bg-red-700 hover:scale-110 transition-all shadow-md"
+              >
+                <RiCloseLargeFill className="text-2xl" />
+              </button>
+              <button
+                onClick={() => setIsFavorite(!isFavorite)}
+                title="Favorite"
+                className={`p-3 rounded-full bg-yellow-500 text-white hover:bg-yellow-600 transition-all shadow-md ${
+                  isFavorite
+                    ? "scale-110 ring ring-yellow-200"
+                    : "hover:scale-110"
+                }`}
+              >
+                <GoStarFill className="text-2xl" />
+              </button>
+              <button
+                onClick={() => setIsLiked(!isLiked)}
+                title="Like"
+                className={`p-3 rounded-full bg-blue-600 text-white hover:bg-blue-700 transition-all shadow-md ${
+                  isLiked ? "scale-110 ring ring-blue-300" : "hover:scale-110"
+                }`}
+              >
+                <BiSolidLike className="text-2xl" />
+              </button>
+            </div>
+          )}
+        </div>
       </div>
 
-      {/* Bottom Labels */}
       {showLabels && (
-        <div className="absolute bottom-6 flex flex-wrap justify-center gap-6 items-center text-gray-300 text-sm">
-          <div className="flex items-center gap-2">
+        <div className="text-center absolute bottom-4 flex flex-wrap justify-center gap-20 px-2 text-gray-300 text-sm">
+          <div className="flex items-center gap-1">
             <LuArrowLeft />
             <span>NOPE</span>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1">
             <LuArrowRight />
             <span>LIKE</span>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1">
             <LuArrowUp />
             <span>SEE PROFILE</span>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1">
             <LuArrowDown />
             <span>CLOSE PROFILE</span>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1">
             <IoMdStarOutline />
-            <span>Super Like</span>
+            <span>SUPER LIKE</span>
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 };
 

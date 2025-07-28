@@ -12,24 +12,24 @@ import {
 import { PiFireFill } from "react-icons/pi";
 
 const FeedCard = ({ profile, showActions = true, showLabels = true }) => {
-  const { name, age, job, distance, image } = profile;
+  const { name="Dhanya Takalkar", age=24, job="Designer", distance=33, image=boyImage } = profile;
 
   const [isLiked, setIsLiked] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
 
   return (
     <>
-      { showLabels && <PiFireFill className="absolute top-4 text-4xl text-gray-300 opacity-70" />}
-      <div className="relative flex flex-col items-center justify-center gap-6 px-4">
-        <div className="flex flex-col items-center gap-4">
-          <div className="relative group transition-transform duration-300 hover:-translate-y-1">
+      { showLabels && <PiFireFill className="absolute top-4 text-4xl text-gray-300 opacity-70 hidden md:block" />}
+      <div className="h-ful max-h-[500px] relative flex flex-col items-center justify-center gap-6 px-4">
+        <div className="h-full flex flex-col items-center gap-4">
+          <div className="h-full relative group transition-transform duration-300 hover:-translate-y-1">
             <img
               src={image}
               alt={name}
-              className="h-[360px] w-[300px] object-cover rounded-2xl shadow-2xl border border-gray-700"
+              className="h-full w-full md:h-[360px] md:w-[300px] object-cover rounded-2xl shadow-2xl md:border md:border-gray-700"
             />
 
-            <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-black/70 via-black/40 to-transparent" />
+            <div className="absolute md:inset-0 rounded-2xl bg-gradient-to-t from-black/70 via-black/40 to-transparent" />
 
             <div className="absolute bottom-4 left-4 z-10 text-white drop-shadow">
               <h3 className="font-extrabold text-2xl">{name}</h3>
@@ -74,7 +74,7 @@ const FeedCard = ({ profile, showActions = true, showLabels = true }) => {
       </div>
 
       {showLabels && (
-        <div className="text-center absolute bottom-4 flex flex-wrap justify-center gap-20 px-2 text-gray-300 text-sm">
+        <div className="text-center absolute bottom-4 flex flex-wrap justify-center gap-20 px-2 text-gray-300 text-sm hidden md:block">
           <div className="flex items-center gap-1">
             <LuArrowLeft />
             <span>NOPE</span>

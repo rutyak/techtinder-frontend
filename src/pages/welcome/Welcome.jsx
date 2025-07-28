@@ -1,7 +1,7 @@
 import bgImage from "../../assets/TechTinder_bg.jpg";
 import Reviews from "./Reviews";
 import Footer from "./Footer";
-import Header from "./Header";
+import WelcomHeader from "./WelcomHeader";
 import Herosection from "./Herosection";
 import { useState } from "react";
 import { useSelector } from "react-redux";
@@ -24,7 +24,7 @@ function Welcome() {
         width: "100%",
       }}
     >
-      <Header
+      <WelcomHeader
         isScrollingUp={isScrollingUp}
         setIsScrollingUp={setIsScrollingUp}
       />

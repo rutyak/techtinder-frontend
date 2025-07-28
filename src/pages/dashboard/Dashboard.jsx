@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import ChatPanel from "../chatpanel/ChatPanel";
 import FeedCard from "../../components/FeedCard";
 import { useEffect, useState } from "react";
@@ -8,6 +8,7 @@ import axios from "axios";
 import { addFeeds } from "../../utils/feedSlice";
 import { jwtDecode } from "jwt-decode";
 import boyImage from "../../assets/dhanya.jpg";
+import DashboardHeader from "../../components/DashboardHeader";
 
 const base_url = import.meta.env.VITE_APP_BACKEND_URL;
 
@@ -62,25 +63,15 @@ function Dashboard() {
   }, []);
 
   return (
-    <div className="flex items-center">
-      <ChatPanel setIsProfileOpen={setIsProfileOpen} />
+    <div className="h-screen flex flex-col md:flex-row items-center">
+      <div className="w-full h-[8%] md:h-screen md:max-w-[250px] lg:max-w-[340px] flex flex-col border-r border-gray-200">
+        {/* header */}
+        <DashboardHeader />
+        <ChatPanel setIsProfileOpen={setIsProfileOpen} />
+      </div>
 
-      <div className="flex-1 h-screen flex items-center justify-center bg-gray-100">
-        {isProfileOpen ? (
-          <Profile />
-        ) : (
-          <FeedCard
-            profile={{
-              name: "Dhanya Takalkar",
-              age: 24,
-              job: "Designer",
-              distance: 33,
-              image: boyImage,
-            }}
-            showActions={true}
-            showLabels={true}
-          />
-        )}
+      <div className="relative flex-1 w-full flex items-center justify-center bg-gray-100">
+        <Outlet />
       </div>
     </div>
   );

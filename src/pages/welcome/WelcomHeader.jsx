@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import Login from "../auth/Login";
 
-function Header({ isScrollingUp }) {
+function WelcomHeader({ isScrollingUp }) {
   return (
     <div className="fixed z-50 top-0 inset-0">
       <div
@@ -53,4 +53,4 @@ function Header({ isScrollingUp }) {
   );
 }
 
-export default Header;
+export default WelcomHeader;

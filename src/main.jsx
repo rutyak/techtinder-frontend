@@ -9,6 +9,11 @@ import { Provider } from "react-redux";
 import store, { persistor } from "./utils/store.js";
 import { PersistGate } from "redux-persist/integration/react";
 import Dashboard from "./pages/dashboard/Dashboard.jsx";
+import Requests from "./pages/requests/Requests.jsx";
+import Profile from "./pages/profile/Profile.jsx";
+import FeedCard from "./components/FeedCard.jsx";
+import Connections from "./pages/connections/Connections.jsx";
+import boyImage from "./assets/dhanya.jpg";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +23,37 @@ const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: <Dashboard />,
+    children: [
+      {
+        index: true,
+        element: (
+          <FeedCard
+            profile={{
+              name: "Dhanya Takalkar",
+              age: 24,
+              job: "Designer",
+              distance: 33,
+              image: boyImage,
+            }}
+            showActions={true}
+            showLabels={true}
+          />
+        ),
+      },
+      {
+        path: "requests",
+        element: <Requests />,
+      },
+      {
+        path: "connections",
+        element: <Connections />,
+      },
+      {
+        path: "profile",
+        element: <Profile />,
+      },
+      
+    ],
   },
 ]);
 

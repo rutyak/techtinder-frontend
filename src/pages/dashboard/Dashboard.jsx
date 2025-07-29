@@ -63,14 +63,14 @@ function Dashboard() {
   }, []);
 
   return (
-    <div className="h-screen flex flex-col md:flex-row items-center">
-      <div className="w-full h-[8%] md:h-screen md:max-w-[250px] lg:max-w-[340px] flex flex-col border-r border-gray-200">
+    <div className="h-screen flex flex-col lg:flex-row items-center">
+      <div className="w-full h-[65px] lg:h-screen lg:max-w-[340px] flex flex-col border-r border-gray-200">
         {/* header */}
         <DashboardHeader />
         <ChatPanel setIsProfileOpen={setIsProfileOpen} />
       </div>
 
-      <div className="relative flex-1 w-full flex items-center justify-center bg-gray-100">
+      <div className="lg:min-h-screen relative flex-1 w-full flex items-center justify-center bg-gray-100">
         <Outlet />
       </div>
     </div>

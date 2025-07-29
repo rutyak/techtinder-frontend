@@ -19,7 +19,7 @@ function ChatPanel({ setIsProfileOpen }) {
   const user = useSelector((state) => state.user);
 
   return (
-    <div className="flex-1 overflow-y-auto md:bg-gray-50 hidden md:block">
+    <div className="flex-1 overflow-y-auto md:bg-gray-50 hidden lg:block">
       <h3 className="px-4 pt-4 pb-2 text-gray-500 font-medium">Chats</h3>
       <div className="space-y-2 px-2">
         {[...Array(5)].map((_, index) => (

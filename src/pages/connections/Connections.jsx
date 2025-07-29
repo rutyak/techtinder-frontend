@@ -40,7 +40,7 @@ function Connections() {
   );
 
   return (
-    <div className="min-h-screen px-6 py-10 bg-gray-100">
+    <div className="max-h-screen bg-gray-100">
       <h1 className="text-3xl font-bold text-blue-700 mb-6">
         Your Connections
       </h1>

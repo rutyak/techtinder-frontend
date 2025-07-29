@@ -14,7 +14,7 @@ function DashboardHeader() {
   const [isOpenDropdown, setIsOpenDropdown] = useState(false);
 
   return (
-    <div className="h-full lg:h-[10vh]  relative bg-gradient-to-r from-blue-400 to-blue-500 p-4 md:pb-6">
+    <div className="h-full lg:h-[122px]  relative bg-gradient-to-r from-blue-400 to-blue-500 p-4 md:pb-6">
       <div className="flex items-center justify-between md:mb-4">
         <div
           onClick={(e) => {

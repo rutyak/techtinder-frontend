@@ -1,17 +1,5 @@
-import { IoIosSearch } from "react-icons/io";
 import boyImage from "../../assets/boy.jpg";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useRef, useState } from "react";
-import axios from "axios";
-import { toast } from "react-toastify";
-import { Link, useNavigate } from "react-router-dom";
-import { removeUser } from "../../utils/userSlice";
-import { FiChevronDown, FiLogOut } from "react-icons/fi";
-import { HiOutlineInbox } from "react-icons/hi";
-import { CgProfile } from "react-icons/cg";
-import Menu from "../menu/Menu";
-import Header from "../welcome/WelcomHeader";
-import DashboardHeader from "../../components/DashboardHeader";
+import { useSelector } from "react-redux";
 
 const base_url = import.meta.env.VITE_APP_BACKEND_URL;
 

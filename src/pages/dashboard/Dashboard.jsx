@@ -20,6 +20,15 @@ function Dashboard() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  async function Logout() {
+    const res = await axios.post(
+      base_url + "/logout",
+      {},
+      { withCredentials: true }
+    );
+    console.log(res.data?.message);
+  }
+
   useEffect(() => {
     let cookies = document.cookie;
     let token = cookies
@@ -37,6 +46,7 @@ function Dashboard() {
 
       if (decoded.exp < currentTime) {
         navigate("/", { replace: true });
+        // Logout();
       }
     } catch (error) {
       console.error(error);

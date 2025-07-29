@@ -70,7 +70,7 @@ const Profile = () => {
   };
 
   return (
-    <div className="w-full max-w-7xl mx-auto px-6 py-6  h-screen">
+    <div className="w-full max-w-7xl mx-auto px-6 py-6 h-screen 2xl:h-auto">
       <div className="flex flex-col lg:flex-row h-full gap-6">
         {/* profile */}
         <div className="w-full lg:w-1/2 bg-white rounded-lg shadow-md p-6 overflow-auto custom-scrollbar">

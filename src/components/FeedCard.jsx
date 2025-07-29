@@ -29,7 +29,7 @@ const FeedCard = ({ profile, showActions = true, showLabels = true }) => {
         <PiFireFill className="absolute top-8 lg:top-4 text-4xl text-gray-300 opacity-70 hidden md:block" />
       )}
 
-      <div className="h-full w-full my-3 mx-3 md:m-0 md:max-w-[600px] md:max-h-[800px] lg:max-w-[350px] lg:max-h-[550px]  xl:max-w-[310px] xl:max-h-[510px]  relative flex flex-col items-center justify-center gap-6 md:px-4">
+      <div className="max-w-4xl h-full w-full my-3 mx-3 md:m-0 md:max-w-[370px] md:max-h-[570px] lg:max-w-[350px] lg:max-h-[550px]  xl:max-w-[310px] xl:max-h-[510px]  relative flex flex-col items-center justify-center gap-6 md:px-4">
         <div className="h-full w-full flex flex-col items-center gap-4">
           <div className="h-full w-full relative group transition-transform duration-300 hover:-translate-y-1">
             <img

@@ -18,8 +18,13 @@ function Login() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    let userExists = document.cookie;
-    if (userExists) {
+    let cookie = document.cookie;
+    let token = cookie
+      .split(";")
+      .find((row) => row.startsWith("jwtToken="))
+      ?.split("=")[1];
+
+    if (token) {
       navigate("/dashboard", { replace: true });
     }
   }, []);
@@ -60,7 +65,7 @@ function Login() {
       ...formData,
       [e.target.name]: e.target.value,
     });
-    setError(""); 
+    setError("");
   };
 
   const handleSubmit = async (e) => {

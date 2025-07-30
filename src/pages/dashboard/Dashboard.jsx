@@ -46,7 +46,7 @@ function Dashboard() {
 
       if (decoded.exp < currentTime) {
         navigate("/", { replace: true });
-        // Logout();
+        Logout();
       }
     } catch (error) {
       console.error(error);

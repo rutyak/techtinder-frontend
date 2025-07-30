@@ -15,6 +15,30 @@ import FeedCard from "./components/FeedCard.jsx";
 import Connections from "./pages/connections/Connections.jsx";
 import boyImage from "./assets/dhanya.jpg";
 
+const profiles = [
+  {
+    name: "Ritika Sharma",
+    age: 23,
+    job: "Frontend Dev",
+    distance: 5,
+    image: "https://i.pravatar.cc/400?img=1",
+  },
+  {
+    name: "Aman Verma",
+    age: 25,
+    job: "Backend Dev",
+    distance: 12,
+    image: "https://i.pravatar.cc/400?img=2",
+  },
+  {
+    name: "Sanya Kapoor",
+    age: 22,
+    job: "UI Designer",
+    distance: 8,
+    image: "https://i.pravatar.cc/400?img=3",
+  },
+];
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -27,17 +51,7 @@ const router = createBrowserRouter([
       {
         index: true,
         element: (
-          <FeedCard
-            profile={{
-              name: "Dhanya Takalkar",
-              age: 24,
-              job: "Designer",
-              distance: 33,
-              image: boyImage,
-            }}
-            showActions={true}
-            showLabels={true}
-          />
+          <FeedCard profiles={profiles} showActions={true} showLabels={true} />
         ),
       },
       {
@@ -52,7 +66,6 @@ const router = createBrowserRouter([
         path: "profile",
         element: <Profile />,
       },
-      
     ],
   },
 ]);

@@ -19,7 +19,9 @@ const Profile = () => {
   const [imagePreview, setImagePreview] = useState("");
   const [profileImageFile, setProfileImageFile] = useState();
   const [showPasswordFields, setShowPasswordFields] = useState(false);
-  const [tags, setTags] = useState(["HTML", "CSS", "JS"]);
+  const [tags, setTags] = useState(
+    user.skills?.length ? user.skills : ["HTML", "CSS", "JS"]
+  );
 
   const [formData, setFormData] = useState({
     firstname: user.firstname,
@@ -70,33 +72,36 @@ const Profile = () => {
   };
 
   return (
-    <div className="w-full max-w-7xl mx-auto px-6 py-6 h-screen 2xl:h-auto">
-      <div className="flex flex-col lg:flex-row h-full gap-6">
-        {/* profile */}
-        <div className="w-full lg:w-1/2 bg-white rounded-lg shadow-md p-6 overflow-auto custom-scrollbar">
-          <div className="flex justify-between items-center mb-6">
-            <h2 className="text-2xl font-bold text-gray-800">My Profile</h2>
+    <div className="px-3 sm:px-8 py-3 w-full max-w-6xl mx-auto">
+      <div className="w-full flex flex-col xl:flex-row gap-8">
+        {/* My Profile */}
+        <div className="w-full xl:w-1/2 bg-white rounded-xl shadow-lg p-6">
+          {/* Header */}
+          <div className="flex justify-between items-baseline mb-6">
+            <h2 className="text-lg md:text-xl xl:text-xl font-bold text-blue-700 mb-6 text-center">
+              My Profile
+            </h2>
             {!isEditing ? (
               <button
                 onClick={() => setIsEditing(true)}
-                className="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+                className="flex items-center gap-2 px-3 py-2 sm:px-4 sm:py-2 bg-blue-500 text-white text-sm sm:text-base rounded-md hover:bg-blue-600 transition"
               >
                 <FaEdit /> Edit
               </button>
             ) : (
-              <div className="flex gap-3">
+              <div className="flex gap-2 sm:gap-3">
                 <button
                   onClick={() => {
                     handleProfileEdit();
                     setIsEditing(false);
                   }}
-                  className="flex items-center gap-2 px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"
+                  className="flex items-center gap-2 px-3 py-2 sm:px-4 sm:py-2 bg-green-500 text-white text-sm sm:text-base rounded-md hover:bg-green-600 transition"
                 >
                   <FiSave /> Save
                 </button>
                 <button
                   onClick={() => setIsEditing(false)}
-                  className="flex items-center gap-2 px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400"
+                  className="flex items-center gap-2 px-3 py-2 sm:px-4 sm:py-2 bg-gray-300 text-gray-800 text-sm sm:text-base rounded-md hover:bg-gray-400 transition"
                 >
                   <FiX /> Cancel
                 </button>
@@ -104,14 +109,15 @@ const Profile = () => {
             )}
           </div>
 
+          {/* Profile Image */}
           <div className="flex flex-col items-center">
             <img
               src={imagePreview || `${base_url}/uploads/${user?.imageurl}`}
               alt="Profile"
-              className="w-36 h-36 rounded-full object-cover border-4 border-blue-100 mb-4"
+              className="w-28 h-28 sm:w-36 sm:h-36 rounded-full object-cover border-4 border-blue-100 mb-4"
             />
             {isEditing && (
-              <label className="cursor-pointer px-4 py-2 border rounded-lg text-blue-500 border-blue-500 hover:bg-blue-50">
+              <label className="cursor-pointer px-4 py-2 border rounded-lg text-blue-500 border-blue-500 hover:bg-blue-50 text-sm">
                 Upload Photo
                 <input
                   type="file"
@@ -123,6 +129,7 @@ const Profile = () => {
             )}
           </div>
 
+          {/* Profile Details */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
             {[
               ["firstname", "First Name"],
@@ -131,7 +138,7 @@ const Profile = () => {
               ["gender", "Gender"],
             ].map(([key, label]) => (
               <div key={key}>
-                <label className="block text-sm text-gray-600 mb-1">
+                <label className="block text-sm font-medium text-gray-600 mb-1">
                   {label}
                 </label>
                 {isEditing ? (
@@ -140,33 +147,43 @@ const Profile = () => {
                     name={key}
                     value={formData[key]}
                     onChange={handleChange}
-                    className="w-full border p-2 rounded focus:outline-none focus:ring"
+                    className="w-full border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
                   />
                 ) : (
-                  <p className="p-2 bg-gray-50 rounded">{user[key]}</p>
+                  <p className="p-2 bg-gray-50 rounded text-gray-700">
+                    {user[key]}
+                  </p>
                 )}
               </div>
             ))}
           </div>
 
+          {/* Password Section */}
           {!isEditing && (
-            <ChangePassword
-              showPasswordFields={showPasswordFields}
-              setShowPasswordFields={setShowPasswordFields}
-            />
+            <div className="mt-6">
+              <ChangePassword
+                showPasswordFields={showPasswordFields}
+                setShowPasswordFields={setShowPasswordFields}
+              />
+            </div>
           )}
 
+          {/* Skills */}
           {isEditing ? (
-            <SkillTags tags={tags} setTags={setTags} />
+            <div className="mt-6">
+              <SkillTags tags={tags} setTags={setTags} />
+            </div>
           ) : (
             <div className="mt-6">
-              <label className="block text-sm text-gray-600 mb-2">Skills</label>
+              <label className="block text-sm font-medium text-gray-600 mb-2">
+                Skills
+              </label>
               <div className="flex flex-wrap gap-2">
                 {user.skills && user.skills.length > 0 ? (
                   user.skills.map((skill, index) => (
                     <span
                       key={index}
-                      className="bg-blue-100 text-blue-800 px-2 py-1 text-sm rounded-full"
+                      className="bg-blue-100 text-blue-800 px-3 py-1 text-sm rounded-full"
                     >
                       #{skill}
                     </span>
@@ -179,8 +196,11 @@ const Profile = () => {
           )}
         </div>
 
-        {/* feed card */}
-        <div className="w-full lg:w-1/2 rounded-lg p-6 flex justify-center items-center">
+        {/* Preview Section */}
+        <div className="w-full xl:w-1/2 rounded-xl p-2 xl:p-6 flex flex-col items-center">
+          <h2 className="text-xl xl:text-2xl font-bold text-blue-700 mb-6 text-center border-b-4 border-blue-200 pb-2 inline-block">
+            Preview
+          </h2>
           <FeedCard
             profile={{
               name:

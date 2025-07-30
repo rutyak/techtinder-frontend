@@ -40,23 +40,23 @@ function Connections() {
   );
 
   return (
-    <div className="min-h-screen flex justify-center items-start py-10 px-4">
-      <div className="w-full max-w-4xl  rounded-2xl p-8">
-        <h1 className="text-3xl font-bold text-blue-700 mb-6 text-center">
+    <div className="px-5 sm:px-8 xl:px-0 w-full min-h-screen flex justify-center items-start">
+      <div className="w-full max-w-4xl rounded-2xl py-5">
+        <h1 className="text-xl md:text-2xl xl:text-3xl font-bold text-blue-700 mb-6 text-center">
           Your Connections
         </h1>
 
-        <div className="mb-8 flex justify-center">
+        <div className="mb-5 md:mb-8 flex justify-center">
           <input
             type="text"
             placeholder="Search connections..."
-            className="w-full max-w-md px-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="w-full max-w-md px-2 py-1 md:px-4 md:py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
         </div>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
           {filteredConnections.length > 0 ? (
             filteredConnections.map((user) => (
               <ConnectionCard key={user.id} user={user} />

@@ -21,20 +21,20 @@ const Requests = () => {
   const [requests, setRequests] = useState(dummyRequests);
 
   const handleAccept = (id) => {
-    setRequests(requests.filter((r) => r.id !== id));
+    setRequests((prev) => prev.filter((r) => r.id !== id));
     alert("Request accepted!");
   };
 
   const handleReject = (id) => {
-    setRequests(requests.filter((r) => r.id !== id));
+    setRequests((prev) => prev.filter((r) => r.id !== id));
     alert("Request rejected!");
   };
 
   return (
-    <div className="w-full min-h-screen p-6">
-      <div className="max-w-4xl mx-auto rounded-2xl p-8">
-        <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">
-          Requests
+    <div className="px-5 sm:px-8 xl:px-0 w-full min-h-screen bg-gray-50">
+      <div className="max-w-4xl mx-auto rounded-2xl">
+        <h2 className="text-xl md:text-2xl xl:text-3xl font-bold text-blue-700 m-6 lg:m-10 xl:m-12 text-center">
+          Pending Requests
         </h2>
 
         {requests.length === 0 ? (
@@ -44,32 +44,35 @@ const Requests = () => {
             {requests.map((req) => (
               <div
                 key={req.id}
-                className="flex flex-col md:flex-row items-center md:items-start gap-4 border rounded-xl p-4 bg-white shadow-lg hover:shadow-md transition"
+                className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 border rounded-xl p-5 bg-white shadow-lg hover:shadow-md transition"
               >
-                <img
-                  src={req.image}
-                  alt={req.name}
-                  className="w-20 h-20 rounded-full object-cover border-4 border-blue-200"
-                />
-
-                <div className="flex-1">
-                  <h3 className="text-xl font-semibold text-gray-700">
-                    {req.name}
-                  </h3>
-                  <p className="text-sm text-gray-500 mb-1">{req.email}</p>
-                  <p className="text-gray-600 mt-1">{req.message}</p>
+                {/* Avatar + Details */}
+                <div className="flex items-center gap-4 flex-1">
+                  <img
+                    src={req.image}
+                    alt={req.name}
+                    className="w-16 h-16 md:w-20 md:h-20 rounded-full object-cover border-4 border-blue-200"
+                  />
+                  <div>
+                    <h3 className="text-lg md:text-xl font-semibold text-gray-700">
+                      {req.name}
+                    </h3>
+                    <p className="text-sm text-gray-500">{req.email}</p>
+                    <p className="text-sm text-gray-600 mt-1">{req.message}</p>
+                  </div>
                 </div>
 
-                <div className="flex gap-3 mt-4 md:mt-0">
+                {/* Buttons */}
+                <div className="flex gap-3 w-full md:w-auto">
                   <button
                     onClick={() => handleAccept(req.id)}
-                    className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition"
+                    className="flex-1 md:flex-none px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition"
                   >
                     Accept
                   </button>
                   <button
                     onClick={() => handleReject(req.id)}
-                    className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
+                    className="flex-1 md:flex-none px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
                   >
                     Reject
                   </button>

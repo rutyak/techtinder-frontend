@@ -1,112 +1,116 @@
-import { useState, useRef, useMemo } from "react";
-import TinderCard from "react-tinder-card";
+import { useState } from "react";
 import { RiCloseLargeFill } from "react-icons/ri";
 import { GoStarFill } from "react-icons/go";
 import { BiSolidLike } from "react-icons/bi";
+import { IoMdStarOutline } from "react-icons/io";
+import {
+  LuArrowLeft,
+  LuArrowRight,
+  LuArrowUp,
+  LuArrowDown,
+} from "react-icons/lu";
+import { PiFireFill } from "react-icons/pi";
 
-const FeedCard = ({ profiles }) => {
-  const [currentIndex, setCurrentIndex] = useState(profiles.length - 1);
-  const [lastDirection, setLastDirection] = useState(null);
+const FeedCard = ({ profile, showActions = true, showLabels = true }) => {
+  const {
+    name = "Dhanya Takalkar",
+    age = 24,
+    job = "Designer",
+    distance = 33,
+    image = "https://via.placeholder.com/400x600", 
+  } = profile;
 
-  // Initialize refs once
-  const childRefs = useMemo(
-    () => Array(profiles.length).fill(0).map(() => React.createRef()),
-    [profiles.length]
-  );
-
-  const swiped = (direction, profile, index) => {
-    setLastDirection(direction);
-    setCurrentIndex(index - 1);
-
-    if (direction === "right") {
-      console.log(`Interested in ${profile.name} ✅`);
-    } else if (direction === "left") {
-      console.log(`Not interested in ${profile.name} ❌`);
-    }
-  };
-
-  const outOfFrame = (name) => {
-    console.log(`${name} left the screen`);
-  };
-
-  // Trigger swipe programmatically
-  const swipe = async (dir) => {
-    if (currentIndex >= 0 && currentIndex < profiles.length) {
-      await childRefs[currentIndex].current.swipe(dir);
-    }
-  };
+  const [isLiked, setIsLiked] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
 
   return (
-    <div className="flex flex-col items-center justify-center w-full h-[85vh] px-3">
-      {/* Card container */}
-      <div className="relative w-full max-w-sm h-[500px]">
-        {profiles.map((profile, index) => (
-          <TinderCard
-            ref={childRefs[index]}
-            key={profile.name}
-            onSwipe={(dir) => swiped(dir, profile, index)}
-            onCardLeftScreen={() => outOfFrame(profile.name)}
-            preventSwipe={["up", "down"]}
-            className="absolute w-full h-full"
-          >
-            <div
-              className={`relative w-full h-full rounded-2xl overflow-hidden shadow-2xl 
-                         transform transition-transform duration-300 cursor-grab active:cursor-grabbing`}
-              style={{
-                zIndex: index === currentIndex ? profiles.length : index,
-              }}
-            >
-              <img
-                src={profile.image}
-                alt={profile.name}
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+    <>
+      {showLabels && (
+        <PiFireFill className="absolute top-8 lg:top-4 text-4xl text-gray-300 opacity-70 hidden md:block" />
+      )}
 
-              <div className="absolute bottom-6 left-5 text-white">
-                <h3 className="text-3xl font-bold drop-shadow">
-                  {profile.name}, {profile.age}
-                </h3>
-                <p className="text-md opacity-90">{profile.job}</p>
-                <p className="text-sm opacity-70">{profile.distance} km away</p>
+      <div className="max-w-4xl h-full w-full my-3 mx-3 md:m-0 md:max-w-[370px] md:max-h-[570px] lg:max-w-[350px] lg:max-h-[550px]  xl:max-w-[310px] xl:max-h-[510px]  relative flex flex-col items-center justify-center gap-6 md:px-4">
+        <div className="h-full w-full flex flex-col items-center gap-4">
+          <div className="h-full w-full relative group transition-transform duration-300 hover:-translate-y-1">
+            <img
+              src={image}
+              alt={name}
+              className="h-full w-full object-cover rounded-2xl shadow-2xl md:border md:border-gray-700"
+            />
+
+            <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-black/70 via-black/40 to-transparent" />
+
+            {/* Profile info */}
+            <div className="absolute bottom-4 left-4 z-10 text-white drop-shadow">
+              <h3 className="font-bold text-3xl md:text-2xl">{name}</h3>
+              <div className="font-medium text-md md:text-sm opacity-90">
+                {distance} km away · {age} yrs
               </div>
-
-              {lastDirection === "right" && index === currentIndex && (
-                <span className="absolute top-8 left-5 px-4 py-2 border-4 border-green-400 text-green-400 text-lg font-bold rotate-[-15deg]">
-                  INTERESTED
-                </span>
-              )}
-              {lastDirection === "left" && index === currentIndex && (
-                <span className="absolute top-8 right-5 px-4 py-2 border-4 border-red-500 text-red-500 text-lg font-bold rotate-[15deg]">
-                  NOT INTERESTED
-                </span>
-              )}
+              <div className="font-semibold text-md md:text-sm opacity-90">
+                {job}
+              </div>
             </div>
-          </TinderCard>
-        ))}
+          </div>
+
+          {/* Action buttons */}
+          {showActions && (
+            <div className="flex gap-8 p-3 rounded-full">
+              <button
+                title="Nope"
+                className="p-3 rounded-full bg-red-600 text-white hover:bg-red-700 hover:scale-110 transition-all shadow-md"
+              >
+                <RiCloseLargeFill className="text-2xl" />
+              </button>
+              <button
+                onClick={() => setIsFavorite(!isFavorite)}
+                title="Favorite"
+                className={`p-3 rounded-full bg-yellow-500 text-white hover:bg-yellow-600 transition-all shadow-md ${
+                  isFavorite
+                    ? "scale-110 ring ring-yellow-200"
+                    : "hover:scale-110"
+                }`}
+              >
+                <GoStarFill className="text-2xl" />
+              </button>
+              <button
+                onClick={() => setIsLiked(!isLiked)}
+                title="Like"
+                className={`p-3 rounded-full bg-blue-600 text-white hover:bg-blue-700 transition-all shadow-md ${
+                  isLiked ? "scale-110 ring ring-blue-300" : "hover:scale-110"
+                }`}
+              >
+                <BiSolidLike className="text-2xl" />
+              </button>
+            </div>
+          )}
+        </div>
       </div>
 
-      <div className="flex gap-6 mt-6">
-        <button
-          onClick={() => swipe("left")}
-          className="p-4 rounded-full bg-red-600 text-white shadow-lg hover:scale-110 transition"
-        >
-          <RiCloseLargeFill className="text-2xl" />
-        </button>
-        <button
-          onClick={() => swipe("right")}
-          className="p-4 rounded-full bg-blue-600 text-white shadow-lg hover:scale-110 transition"
-        >
-          <BiSolidLike className="text-2xl" />
-        </button>
-        <button
-          onClick={() => console.log("Super Like ⭐")}
-          className="p-4 rounded-full bg-yellow-500 text-white shadow-lg hover:scale-110 transition"
-        >
-          <GoStarFill className="text-2xl" />
-        </button>
-      </div>
-    </div>
+      {showLabels && (
+        <div className="text-center absolute bottom-8 lg:bottom-4 md:flex md:flex-wrap justify-center gap-20 px-2 text-gray-300 text-sm hidden">
+          <div className="flex items-center gap-1">
+            <LuArrowLeft />
+            <span>NOPE</span>
+          </div>
+          <div className="flex items-center gap-1">
+            <LuArrowRight />
+            <span>LIKE</span>
+          </div>
+          <div className="flex items-center gap-1">
+            <LuArrowUp />
+            <span>SEE PROFILE</span>
+          </div>
+          <div className="flex items-center gap-1">
+            <LuArrowDown />
+            <span>CLOSE PROFILE</span>
+          </div>
+          <div className="flex items-center gap-1">
+            <IoMdStarOutline />
+            <span>SUPER LIKE</span>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 

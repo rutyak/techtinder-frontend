@@ -1,6 +1,6 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import ChatPanel from "../chatpanel/ChatPanel";
-import FeedCard from "../../components/FeedCard";
+import FeedCard from "../../components/FeedCards";
 import { useEffect, useState } from "react";
 import Profile from "../profile/Profile";
 import { useDispatch, useSelector } from "react-redux";

@@ -11,33 +11,10 @@ import { PersistGate } from "redux-persist/integration/react";
 import Dashboard from "./pages/dashboard/Dashboard.jsx";
 import Requests from "./pages/requests/Requests.jsx";
 import Profile from "./pages/profile/Profile.jsx";
-import FeedCard from "./components/FeedCard.jsx";
 import Connections from "./pages/connections/Connections.jsx";
 import boyImage from "./assets/dhanya.jpg";
+import FeedCards from "./components/FeedCards.jsx";
 
-const profiles = [
-  {
-    name: "Ritika Sharma",
-    age: 23,
-    job: "Frontend Dev",
-    distance: 5,
-    image: "https://i.pravatar.cc/400?img=1",
-  },
-  {
-    name: "Aman Verma",
-    age: 25,
-    job: "Backend Dev",
-    distance: 12,
-    image: "https://i.pravatar.cc/400?img=2",
-  },
-  {
-    name: "Sanya Kapoor",
-    age: 22,
-    job: "UI Designer",
-    distance: 8,
-    image: "https://i.pravatar.cc/400?img=3",
-  },
-];
 
 const router = createBrowserRouter([
   {
@@ -50,9 +27,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: (
-          <FeedCard profiles={profiles} showActions={true} showLabels={true} />
-        ),
+        element: <FeedCards />,
       },
       {
         path: "requests",

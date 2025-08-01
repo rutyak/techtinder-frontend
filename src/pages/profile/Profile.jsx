@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { FaEdit } from "react-icons/fa";
 import { FiSave, FiX } from "react-icons/fi";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { addUser } from "../../utils/userSlice";
-import FeedCard from "../../components/FeedCard";
 import SkillTags from "./SkillTags";
 import ChangePassword from "./ChangePassword";
+import FeedCards from "../../components/FeedCards";
 
 const base_url = import.meta.env.VITE_APP_BACKEND_URL;
 
@@ -201,7 +201,7 @@ const Profile = () => {
           <h2 className="text-xl xl:text-2xl font-bold text-blue-700 mb-6 text-center border-b-4 border-blue-200 pb-2 inline-block">
             Preview
           </h2>
-          <FeedCard
+          <FeedCards
             profile={{
               name:
                 formData.firstname && formData.lastname

@@ -14,30 +14,32 @@ function DashboardHeader() {
   const [isOpenDropdown, setIsOpenDropdown] = useState(false);
 
   return (
-    <div className="h-full lg:h-[122px]  relative bg-gradient-to-r from-blue-400 to-blue-500 p-4 md:pb-6">
+    <div className="h-full lg:h-[122px]  relative md:bg-gradient-to-r from-blue-400 to-blue-500 p-4 md:pb-6">
       <div className="flex items-center justify-between md:mb-4">
         <div
           onClick={(e) => {
             e.stopPropagation();
             setIsOpenDropdown(true);
           }}
-          className="flex items-center gap-2 text-white cursor-pointer"
+          className="flex items-center gap-2 text-gray-500 md:text-white cursor-pointer"
         >
-          <div className="w-8 h-8 bg-white text-blue-600 flex items-center justify-center rounded-full font-bold">
+          <div className="w-8 h-8 bg-gray-300 md:bg-white text-blue-600 flex items-center justify-center rounded-full font-bold">
             {user?.firstname?.[0] || "U"}
           </div>
           <div className="text-[16px] flex items-center justify-center gap-1">
-            <div className="text-white font-light leading-none">Welcome</div>
-            <div className="text-white font-semibold -mt-0.5">
+            <div className="text-gray-500 md:text-white font-light leading-none">
+              Welcome
+            </div>
+            <div className="text-gray-500 md:text-white  font-semibold -mt-0.5">
               {user?.firstname}
             </div>
           </div>
-          <FiChevronDown className="text-white" />
+          <FiChevronDown className="text-gray-500 md:text-white" />
         </div>
 
         <Link to="/dashboard/requests" className="relative cursor-pointer">
-          <HiOutlineInbox className="text-2xl text-white" />
-          <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
+          <HiOutlineInbox className="text-2xl text-gray-500 md:text-white" />
+          <span className="absolute -top-1 -right-1 bg-red-500 text-gray-500 md:text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
             3
           </span>
         </Link>

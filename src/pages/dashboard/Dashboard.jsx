@@ -80,7 +80,7 @@ function Dashboard() {
         <ChatPanel setIsProfileOpen={setIsProfileOpen} />
       </div>
 
-      <div className="lg:min-h-screen relative flex-1 w-full flex items-center justify-center bg-gray-100">
+      <div className="lg:min-h-screen relative flex-1 w-full flex items-center justify-center sm:bg-gray-100">
         <Outlet />
       </div>
     </div>

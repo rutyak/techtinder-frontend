@@ -29,5 +29,6 @@
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: #5e8ad1; /* Tailwind blue-500 */
+  background-color: #5e8ad1;
 }
+

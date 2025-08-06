@@ -72,9 +72,9 @@ const Profile = () => {
   };
 
   return (
-    <div className="h-screen xl:flex xl:items-center px-3 sm:px-8 py-3 w-full max-w-6xl mx-auto lg:ml-[340px]">
+    <div className="h-screen xl:flex xl:items-center px-3 sm:px-8 py-3 w-full max-w-6xl mx-auto">
       <div className="w-full flex flex-col xl:flex-row gap-8 mt-9 lg:mt-4">
-        <div className="w-full xl:w-1/2 bg-white rounded-xl shadow-lg p-5 md:p-6 border border-gray-600 sm:border-none">
+        <div className="w-full xl:w-1/2 bg-white rounded-xl shadow-lg p-5 md:p-6 border border-gray-600 sm:border-none xl:max-h-[650px] xl:overflow-auto">
           <div className="flex justify-between items-baseline mb-6">
             <h2 className="text-lg md:text-xl xl:text-xl font-bold text-blue-700 mb-6 text-center">
               My Profile
@@ -134,6 +134,7 @@ const Profile = () => {
               ["lastname", "Last Name"],
               ["age", "Age"],
               ["gender", "Gender"],
+              ["job", "Job"],
             ].map(([key, label]) => (
               <div key={key}>
                 <label className="block text-sm font-medium text-gray-600 mb-1">
@@ -202,16 +203,17 @@ const Profile = () => {
           <FeedCards
             profile={{
               name:
-                formData.firstname && formData.lastname
-                  ? `${formData.firstname} ${formData.lastname}`
-                  : `${user.firstname} ${user.lastname}`,
+                (formData.firstname || user.firstname) +
+                " " +
+                (formData.lastname || user.lastname),
               age: formData.age || user.age,
-              job: formData.skills || user.skills || "Not specified",
+              job: tags.length ? formData.job : "Not specified",
               distance: 0,
               image: imagePreview || `${base_url}/uploads/${user?.imageurl}`,
             }}
-            showActions={true}
-            showLabels={false}
+            showActions={true} 
+            showLabels={true}
+            isPreview={true}
           />
         </div>
       </div>

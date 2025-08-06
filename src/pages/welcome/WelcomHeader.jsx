@@ -23,22 +23,10 @@ function WelcomHeader({ isScrollingUp }) {
                 to="/"
                 className="font-semibold text-base lg:text-lg text-gray-400 hover:text-blue-600 transition-colors duration-200"
               >
-                Home
-              </Link>
-              <Link
-                to="/about"
-                className="font-semibold text-base lg:text-lg text-gray-400 hover:text-blue-600 transition-colors duration-200"
-              >
-                About Us
-              </Link>
-              <Link
-                to="/services"
-                className="font-semibold text-base lg:text-lg text-gray-400 hover:text-blue-600 transition-colors duration-200"
-              >
                 Services
               </Link>
               <Link
-                to="/contact"
+                to="/"
                 className="font-semibold text-base lg:text-lg text-gray-400 hover:text-blue-600 transition-colors duration-200"
               >
                 Contact Us

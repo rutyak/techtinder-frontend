@@ -1,15 +1,23 @@
-import { useState, useRef, createRef } from "react";
+import { useState, useRef, createRef, useEffect } from "react";
 import TinderCard from "react-tinder-card";
 import { RiCloseLargeFill } from "react-icons/ri";
 import { BiSolidLike } from "react-icons/bi";
 import { GoStarFill } from "react-icons/go";
 import { SiTinder } from "react-icons/si";
 import Instruction from "./Instructions";
+import { useSelector } from "react-redux";
 
-function FeedCards({ profile, showActions = true, showLabels = true }) {
+function FeedCards({
+  profile,
+  showActions = true,
+  showLabels = true,
+  isPreview = false,
+}) {
+  const feeds = useSelector((state) => state.feeds);
+
   const [people, setPeople] = useState(
     profile
-      ? [profile] // if Profile passes preview card
+      ? [profile]
       : [
           {
             name: "Ritika Sharma",
@@ -35,13 +43,22 @@ function FeedCards({ profile, showActions = true, showLabels = true }) {
         ]
   );
 
+  useEffect(() => {
+     if(profile){
+      setPeople([profile]);
+     }
+  }, [profile])
+
   const cardRefs = useRef(people.map(() => createRef()));
 
   function handleCardLeft(name) {
-    setPeople((prev) => prev.filter((p) => p.name !== name));
+    if (!isPreview) {
+      setPeople((prev) => prev.filter((p) => p.name !== name));
+    }
   }
 
   async function swipe(dir) {
+    if (isPreview) return; 
     const cardsLeft = cardRefs.current.filter((ref) => ref.current);
     if (cardsLeft.length) {
       let CardToSwipe = cardsLeft[cardsLeft.length - 1].current;
@@ -50,23 +67,16 @@ function FeedCards({ profile, showActions = true, showLabels = true }) {
   }
 
   return (
-    <div className="w-full flex flex-col items-center">
+    <div className="w-full flex flex-col items-center justify-between sm:gap-6">
       {/* Tinder Logo */}
-      {showLabels && (
-        <SiTinder size={28} className="text-red-500 my-3 hidden lg:block" />
+      {showLabels && !isPreview && (
+        <SiTinder size={28} className="text-gray-300 my-3 hidden sm:block" />
       )}
 
       {/* Card Stack */}
       <div className="relative w-[95%] sm:w-[310px] h-[70vh] sm:h-[420px] flex justify-center">
-        {people.map((person, index) => (
-          <TinderCard
-            ref={cardRefs.current[index]}
-            key={person.name}
-            preventSwipe={["down"]}
-            onCardLeftScreen={() => handleCardLeft(person.name)}
-            swipeRequirementType="position"
-            className="absolute w-full h-full"
-          >
+        {people.map((person, index) => {
+          const CardContent = (
             <div
               style={{
                 backgroundImage: `url(${person.image})`,
@@ -87,12 +97,29 @@ function FeedCards({ profile, showActions = true, showLabels = true }) {
                 )}
               </div>
             </div>
-          </TinderCard>
-        ))}
+          );
+
+          return isPreview ? (
+            <div key={person.name} className="absolute w-full h-full">
+              {CardContent}
+            </div>
+          ) : (
+            <TinderCard
+              ref={cardRefs.current[index]}
+              key={person.name}
+              preventSwipe={["down"]}
+              onCardLeftScreen={() => handleCardLeft(person.name)}
+              swipeRequirementType="position"
+              className="absolute w-full h-full"
+            >
+              {CardContent}
+            </TinderCard>
+          );
+        })}
       </div>
 
       {/* Action Buttons */}
-      {showActions && (
+      { showActions && (
         <div className="flex gap-8 mt-6 mb-4">
           <button
             onClick={() => swipe("left")}
@@ -116,7 +143,7 @@ function FeedCards({ profile, showActions = true, showLabels = true }) {
       )}
 
       {/* Instruction Bar */}
-      {showLabels && <Instruction />}
+      {!isPreview && showLabels && <Instruction />}
     </div>
   );
 }

@@ -40,7 +40,7 @@ function Connections() {
   );
 
   return (
-    <div className="px-5 sm:px-8 xl:px-0 w-full min-h-screen flex justify-center items-start">
+    <div className="px-5 sm:px-8 xl:px-0 w-full flex items-start justify-center">
       <div className="w-full max-w-4xl rounded-2xl py-5">
         <h1 className="text-xl md:text-2xl xl:text-3xl font-bold text-blue-700 mb-6 text-center">
           Your Connections

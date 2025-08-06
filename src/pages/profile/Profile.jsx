@@ -72,11 +72,9 @@ const Profile = () => {
   };
 
   return (
-    <div className="px-3 sm:px-8 py-3 w-full h-auto max-w-6xl mx-auto lg:ml-[340px]">
-      <div className="w-full flex flex-col xl:flex-row gap-8">
-        {/* My Profile */}
-        <div className="w-full xl:w-1/2 bg-white rounded-xl shadow-lg p-6">
-          {/* Header */}
+    <div className="h-screen xl:flex xl:items-center px-3 sm:px-8 py-3 w-full max-w-6xl mx-auto lg:ml-[340px]">
+      <div className="w-full flex flex-col xl:flex-row gap-8 mt-9 lg:mt-4">
+        <div className="w-full xl:w-1/2 bg-white rounded-xl shadow-lg p-5 md:p-6 border border-gray-600 sm:border-none">
           <div className="flex justify-between items-baseline mb-6">
             <h2 className="text-lg md:text-xl xl:text-xl font-bold text-blue-700 mb-6 text-center">
               My Profile

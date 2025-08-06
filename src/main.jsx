@@ -13,7 +13,7 @@ import Requests from "./pages/requests/Requests.jsx";
 import Profile from "./pages/profile/Profile.jsx";
 import Connections from "./pages/connections/Connections.jsx";
 import boyImage from "./assets/dhanya.jpg";
-import FeedCards from "./components/FeedCards.jsx";
+import FeedCards from "./components/FeedCard/FeedCards.jsx";
 
 
 const router = createBrowserRouter([

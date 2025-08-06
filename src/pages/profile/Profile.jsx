@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import { addUser } from "../../utils/userSlice";
 import SkillTags from "./SkillTags";
 import ChangePassword from "./ChangePassword";
-import FeedCards from "../../components/FeedCards";
+import FeedCards from "../../components/FeedCard/FeedCards";
 
 const base_url = import.meta.env.VITE_APP_BACKEND_URL;
 
@@ -72,7 +72,7 @@ const Profile = () => {
   };
 
   return (
-    <div className="px-3 sm:px-8 py-3 w-full max-w-6xl mx-auto">
+    <div className="px-3 sm:px-8 py-3 w-full h-auto max-w-6xl mx-auto lg:ml-[340px]">
       <div className="w-full flex flex-col xl:flex-row gap-8">
         {/* My Profile */}
         <div className="w-full xl:w-1/2 bg-white rounded-xl shadow-lg p-6">

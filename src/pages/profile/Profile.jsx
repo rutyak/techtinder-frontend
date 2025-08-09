@@ -13,6 +13,7 @@ const base_url = import.meta.env.VITE_APP_BACKEND_URL;
 
 const Profile = () => {
   const user = useSelector((state) => state.user);
+  console.log("user: ", user);
   const dispatch = useDispatch();
 
   const [isEditing, setIsEditing] = useState(false);
@@ -28,6 +29,7 @@ const Profile = () => {
     lastname: user.lastname,
     age: user.age,
     gender: user.gender,
+    job: user.job,
     imageurl: user.imageurl,
     skills: user.skills,
   });
@@ -55,6 +57,8 @@ const Profile = () => {
           withCredentials: true,
         });
       }
+
+      console.log();
 
       const res = await axios.patch(
         `${base_url}/profile/edit`,
@@ -110,7 +114,7 @@ const Profile = () => {
           {/* Profile Image */}
           <div className="flex flex-col items-center">
             <img
-              src={imagePreview || `${base_url}/uploads/${user?.imageurl}`}
+              src={imagePreview || user?.imageurl}
               alt="Profile"
               className="w-28 h-28 sm:w-36 sm:h-36 rounded-full object-cover border-4 border-blue-100 mb-4"
             />
@@ -202,16 +206,14 @@ const Profile = () => {
           </h2>
           <FeedCards
             profile={{
-              name:
-                (formData.firstname || user.firstname) +
-                " " +
-                (formData.lastname || user.lastname),
+              firstname: formData.firstname || user.firstname,
+              lastname: formData.lastname || user.lastname,
               age: formData.age || user.age,
               job: tags.length ? formData.job : "Not specified",
               distance: 0,
-              image: imagePreview || `${base_url}/uploads/${user?.imageurl}`,
+              imageurl: imagePreview || user?.imageurl,
             }}
-            showActions={true} 
+            showActions={true}
             showLabels={true}
             isPreview={true}
           />

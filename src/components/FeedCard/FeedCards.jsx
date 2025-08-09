@@ -5,7 +5,10 @@ import { BiSolidLike } from "react-icons/bi";
 import { GoStarFill } from "react-icons/go";
 import { SiTinder } from "react-icons/si";
 import Instruction from "./Instructions";
-import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import axios from "axios";
+
+const base_url = import.meta.env.VITE_APP_BACKEND_URL;
 
 function FeedCards({
   profile,
@@ -13,73 +16,92 @@ function FeedCards({
   showLabels = true,
   isPreview = false,
 }) {
-  const feeds = useSelector((state) => state.feeds);
+  const [people, setPeople] = useState(profile ? [profile] : []);
+  const cardRefs = useRef([]);
 
-  const [people, setPeople] = useState(
-    profile
-      ? [profile]
-      : [
-          {
-            name: "Ritika Sharma",
-            age: 23,
-            job: "Frontend Dev",
-            distance: 5,
-            image: "https://i.pravatar.cc/400?img=1",
-          },
-          {
-            name: "Aman Verma",
-            age: 25,
-            job: "Backend Dev",
-            distance: 12,
-            image: "https://i.pravatar.cc/400?img=2",
-          },
-          {
-            name: "Sanya Kapoor",
-            age: 22,
-            job: "UI Designer",
-            distance: 8,
-            image: "https://i.pravatar.cc/400?img=3",
-          },
-        ]
-  );
-
+  // Rebuild refs whenever people changes
   useEffect(() => {
-     if(profile){
-      setPeople([profile]);
-     }
-  }, [profile])
+    cardRefs.current = people.map(() => createRef());
+  }, [people]);
 
-  const cardRefs = useRef(people.map(() => createRef()));
-
-  function handleCardLeft(name) {
-    if (!isPreview) {
-      setPeople((prev) => prev.filter((p) => p.name !== name));
+  // Fetch feed data
+  const getFeedData = async () => {
+    try {
+      const res = await axios.get(`${base_url}/feeds`, {
+        withCredentials: true,
+      });
+      setPeople(res?.data?.feeds || []);
+    } catch (error) {
+      console.error("Error fetching feed data:", error);
+      toast.error("Failed to load feeds");
     }
-  }
+  };
 
-  async function swipe(dir) {
-    if (isPreview) return; 
+  // Initial fetch
+  useEffect(() => {
+    if (!profile) {
+      getFeedData();
+    }
+  }, [profile]);
+
+  // Update people when single profile is passed
+  useEffect(() => {
+    if (profile) {
+      setPeople([profile]);
+    }
+  }, [profile]);
+
+  // Handle swipe action
+  const handleCardLeft = async (dir, id) => {
+    try {
+      let endpoint = "";
+      if (dir === "right") {
+        endpoint = `${base_url}/request/send/interested/${id}`;
+      } else if (dir === "left") {
+        endpoint = `${base_url}/request/send/ignored/${id}`;
+      } else if (dir === "up") {
+        endpoint = `${base_url}/request/send/superinterested/${id}`;
+      }
+
+      const res = await axios.post(endpoint, {}, { withCredentials: true });
+
+      // Unique toast per action
+      toast.success(res.data?.message || "Action completed", {
+        toastId: `${dir}-${id}`,
+      });
+
+      // Remove from local state
+      if (!isPreview) {
+        setPeople((prev) => prev.filter((p) => p._id !== id));
+      }
+    } catch (error) {
+      console.error("Swipe action failed:", error);
+      toast.error("Something went wrong");
+    }
+  };
+
+  // Trigger swipe programmatically
+  const swipe = async (dir) => {
+    if (isPreview) return;
     const cardsLeft = cardRefs.current.filter((ref) => ref.current);
     if (cardsLeft.length) {
-      let CardToSwipe = cardsLeft[cardsLeft.length - 1].current;
-      await CardToSwipe.swipe(dir);
+      await cardsLeft[cardsLeft.length - 1].current.swipe(dir);
     }
-  }
+  };
 
   return (
     <div className="w-full flex flex-col items-center justify-between sm:gap-6">
-      {/* Tinder Logo */}
       {showLabels && !isPreview && (
         <SiTinder size={28} className="text-gray-300 my-3 hidden sm:block" />
       )}
 
-      {/* Card Stack */}
+      {/* Card container */}
       <div className="relative w-[95%] sm:w-[310px] h-[70vh] sm:h-[420px] flex justify-center">
         {people.map((person, index) => {
           const CardContent = (
             <div
               style={{
-                backgroundImage: `url(${person.image})`,
+                backgroundImage: `url(${person?.imageurl})`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
               }}
@@ -87,28 +109,23 @@ function FeedCards({
             >
               <div className="bg-black/40 p-3 rounded-lg">
                 <h2 className="text-xl font-bold">
-                  {person.name}, {person.age}
+                  {person?.firstname} {person?.lastname}, {person?.age}
                 </h2>
-                {showLabels && (
-                  <>
-                    <p className="text-sm">{person.job}</p>
-                    <p className="text-xs">{person.distance} km away</p>
-                  </>
-                )}
+                {showLabels && <p className="text-sm">{person?.job}</p>}
               </div>
             </div>
           );
 
           return isPreview ? (
-            <div key={person.name} className="absolute w-full h-full">
+            <div key={person._id} className="absolute w-full h-full">
               {CardContent}
             </div>
           ) : (
             <TinderCard
               ref={cardRefs.current[index]}
-              key={person.name}
+              key={person._id}
               preventSwipe={["down"]}
-              onCardLeftScreen={() => handleCardLeft(person.name)}
+              onSwipe={(dir) => handleCardLeft(dir, person._id)}
               swipeRequirementType="position"
               className="absolute w-full h-full"
             >
@@ -118,8 +135,8 @@ function FeedCards({
         })}
       </div>
 
-      {/* Action Buttons */}
-      { showActions && (
+      {/* Swipe buttons */}
+      {showActions && (
         <div className="flex gap-8 mt-6 mb-4">
           <button
             onClick={() => swipe("left")}
@@ -142,7 +159,6 @@ function FeedCards({
         </div>
       )}
 
-      {/* Instruction Bar */}
       {!isPreview && showLabels && <Instruction />}
     </div>
   );

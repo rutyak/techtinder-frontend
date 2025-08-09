@@ -12,6 +12,8 @@ import DashboardHeader from "../../components/DashboardHeader";
 const base_url = import.meta.env.VITE_APP_BACKEND_URL;
 
 function Dashboard() {
+  const feeds = useSelector((state) => state.feeds);
+  console.log("feeds in dashcboard: ", feeds);
 
   const [isProfileOpen, setIsProfileOpen] = useState(false);
 
@@ -54,6 +56,21 @@ function Dashboard() {
   if (!document.cookie) {
     return null;
   }
+
+  async function getFeedData() {
+    try {
+      const res = await axios.get(base_url + "/feeds", {
+        withCredentials: true,
+      });
+      dispatch(addFeeds(res?.data?.feeds));
+    } catch (error) {
+      console.error("error: ", error);
+    }
+  }
+
+  useEffect(() => {
+    getFeedData();
+  }, []);
 
   return (
     <div className="h-screen flex flex-col lg:flex-row items-center">

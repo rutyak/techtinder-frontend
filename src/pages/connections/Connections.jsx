@@ -1,5 +1,10 @@
 import { useState } from "react";
 import ConnectionCard from "./ConnectionCard";
+import { useEffect } from "react";
+import axios from "axios";
+import { toast } from "react-toastify";
+
+const base_url = import.meta.env.VITE_APP_BACKEND_URL;
 
 const dummyConnections = [
   {
@@ -33,10 +38,34 @@ const dummyConnections = [
 ];
 
 function Connections() {
+  const [connections, setConnections] = useState([]);
   const [search, setSearch] = useState("");
 
-  const filteredConnections = dummyConnections.filter((user) =>
-    user.name.toLowerCase().includes(search.toLowerCase())
+  async function getConnections() {
+    try {
+      const res = await axios.get(`${base_url}/user/connections`, {
+        withCredentials: true,
+      });
+
+      console.log(res.data);
+      setConnections(res.data?.data);
+      if (!toast.isActive("getConnections")) {
+        toast.success(res.data?.message, { toastId: "getConnections" });
+      }
+    } catch (error) {
+      toast.error(error.data?.message);
+      consol.error(error);
+    }
+  }
+
+  useEffect(() => {
+    getConnections();
+  }, []);
+
+  const filteredConnections = connections?.filter(
+    (user) =>
+      user?.firstname?.toLowerCase().includes(search?.toLowerCase()) ||
+      user?.lastname?.toLowerCase().includes(search?.toLowerCase())
   );
 
   return (
@@ -59,7 +88,7 @@ function Connections() {
         <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
           {filteredConnections.length > 0 ? (
             filteredConnections.map((user) => (
-              <ConnectionCard key={user.id} user={user} />
+              <ConnectionCard key={user?._id} user={user} />
             ))
           ) : (
             <p className="text-gray-500 col-span-full text-center">

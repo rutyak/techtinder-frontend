@@ -14,7 +14,7 @@ import Profile from "./pages/profile/Profile.jsx";
 import Connections from "./pages/connections/Connections.jsx";
 import boyImage from "./assets/dhanya.jpg";
 import FeedCards from "./components/FeedCard/FeedCards.jsx";
-
+import { GlobalProvider } from "./context/GlobalContext.jsx";
 
 const router = createBrowserRouter([
   {
@@ -49,8 +49,10 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Provider store={store}>
       <PersistGate persistor={persistor}>
-        <ToastContainer />
-        <RouterProvider router={router} />
+        <GlobalProvider>
+          <ToastContainer />
+          <RouterProvider router={router} />
+        </GlobalProvider>
       </PersistGate>
     </Provider>
   </React.StrictMode>

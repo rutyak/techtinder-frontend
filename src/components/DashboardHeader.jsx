@@ -5,9 +5,13 @@ import { IoIosSearch } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import Menu from "../pages/menu/Menu";
+import { useGlobalVariable } from "../context/GlobalContext";
 
 function DashboardHeader() {
   const user = useSelector((state) => state.user);
+
+  const { requestCount } = useGlobalVariable();
+  
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -40,7 +44,7 @@ function DashboardHeader() {
         <Link to="/dashboard/requests" className="relative cursor-pointer">
           <HiOutlineInbox className="text-2xl text-gray-500 md:text-white" />
           <span className="absolute -top-1 -right-1 bg-red-500 text-gray-500 md:text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
-            3
+            {requestCount}
           </span>
         </Link>
       </div>

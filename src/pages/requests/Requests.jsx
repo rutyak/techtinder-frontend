@@ -1,12 +1,13 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { useGlobalVariable } from "../../context/GlobalContext";
 
 const base_url = import.meta.env.VITE_APP_BACKEND_URL;
 
 const Requests = () => {
   const [requests, setRequests] = useState([]);
-  3;
+  const { setRequestCount } = useGlobalVariable();
 
   async function getRequests() {
     const res = await axios.get(`${base_url}/user/request/received`, {
@@ -60,6 +61,10 @@ const Requests = () => {
       console.error(error);
     }
   };
+
+  useEffect(() => {
+    setRequestCount(requests.length);
+  }, [requests]);
 
   return (
     <div className="px-5 sm:px-8 xl:px-0 w-full">

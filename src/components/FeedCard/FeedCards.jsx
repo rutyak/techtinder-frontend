@@ -5,8 +5,10 @@ import { BiSolidLike } from "react-icons/bi";
 import { GoStarFill } from "react-icons/go";
 import { SiTinder } from "react-icons/si";
 import Instruction from "./Instructions";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { removeFeeds } from "../../utils/feedSlice";
 
 const base_url = import.meta.env.VITE_APP_BACKEND_URL;
 
@@ -16,78 +18,58 @@ function FeedCards({
   showLabels = true,
   isPreview = false,
 }) {
-  const [people, setPeople] = useState(profile ? [profile] : []);
+  const feeds = useSelector((state) => state.feeds);
+  const [people, setPeople] = useState(profile ? [profile] : feeds);
   const cardRefs = useRef([]);
+  const dispatch = useDispatch();
 
-  // Rebuild refs whenever people changes
+  // Keep refs in sync with people array
   useEffect(() => {
     cardRefs.current = people.map(() => createRef());
   }, [people]);
 
-  // Fetch feed data
-  const getFeedData = async () => {
-    try {
-      const res = await axios.get(`${base_url}/feeds`, {
-        withCredentials: true,
-      });
-      setPeople(res?.data?.feeds || []);
-    } catch (error) {
-      console.error("Error fetching feed data:", error);
-      toast.error("Failed to load feeds");
-    }
-  };
-
-  // Initial fetch
-  useEffect(() => {
-    if (!profile) {
-      getFeedData();
-    }
-  }, [profile]);
-
-  // Update people when single profile is passed
+  // Update when profile prop changes
   useEffect(() => {
     if (profile) {
       setPeople([profile]);
     }
   }, [profile]);
 
-  // Handle swipe action
-  const handleCardLeft = async (dir, id) => {
+  async function handleCardLeft(dir, id) {
     try {
       let endpoint = "";
       if (dir === "right") {
         endpoint = `${base_url}/request/send/interested/${id}`;
       } else if (dir === "left") {
         endpoint = `${base_url}/request/send/ignored/${id}`;
-      } else if (dir === "up") {
+      } else {
         endpoint = `${base_url}/request/send/superinterested/${id}`;
       }
 
       const res = await axios.post(endpoint, {}, { withCredentials: true });
+      toast.success(res.data?.message || "Request sent successfully");
 
-      // Unique toast per action
-      toast.success(res.data?.message || "Action completed", {
-        toastId: `${dir}-${id}`,
-      });
+      // Remove from Redux store
+      dispatch(removeFeeds(id));
 
       // Remove from local state
       if (!isPreview) {
         setPeople((prev) => prev.filter((p) => p._id !== id));
       }
     } catch (error) {
-      console.error("Swipe action failed:", error);
+      console.error(error);
       toast.error("Something went wrong");
     }
-  };
+  }
 
-  // Trigger swipe programmatically
-  const swipe = async (dir) => {
+  async function swipe(dir) {
     if (isPreview) return;
     const cardsLeft = cardRefs.current.filter((ref) => ref.current);
     if (cardsLeft.length) {
-      await cardsLeft[cardsLeft.length - 1].current.swipe(dir);
+      const CardToSwipe = cardsLeft[cardsLeft.length - 1].current;
+      await CardToSwipe.swipe(dir);
     }
-  };
+  }
 
   return (
     <div className="w-full flex flex-col items-center justify-between sm:gap-6">
@@ -95,7 +77,6 @@ function FeedCards({
         <SiTinder size={28} className="text-gray-300 my-3 hidden sm:block" />
       )}
 
-      {/* Card container */}
       <div className="relative w-[95%] sm:w-[310px] h-[70vh] sm:h-[420px] flex justify-center">
         {people.map((person, index) => {
           const CardContent = (
@@ -111,13 +92,16 @@ function FeedCards({
                 <h2 className="text-xl font-bold">
                   {person?.firstname} {person?.lastname}, {person?.age}
                 </h2>
-                {showLabels && <p className="text-sm">{person?.job}</p>}
+                {showLabels && <p className="text-sm">{person.job}</p>}
               </div>
             </div>
           );
 
           return isPreview ? (
-            <div key={person._id} className="absolute w-full h-full">
+            <div
+              key={person._id}
+              className="absolute w-full h-full"
+            >
               {CardContent}
             </div>
           ) : (
@@ -135,7 +119,6 @@ function FeedCards({
         })}
       </div>
 
-      {/* Swipe buttons */}
       {showActions && (
         <div className="flex gap-8 mt-6 mb-4">
           <button

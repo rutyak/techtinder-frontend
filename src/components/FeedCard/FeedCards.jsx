@@ -8,7 +8,7 @@ import Instruction from "./Instructions";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { removeFeeds } from "../../utils/feedSlice";
+import { addFeeds, removeFeeds } from "../../utils/feedSlice";
 
 const base_url = import.meta.env.VITE_APP_BACKEND_URL;
 
@@ -19,9 +19,32 @@ function FeedCards({
   isPreview = false,
 }) {
   const feeds = useSelector((state) => state.feeds);
-  const [people, setPeople] = useState(profile ? [profile] : feeds);
+
+  const [people, setPeople] = useState(profile ? [profile] : []);
   const cardRefs = useRef([]);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!profile && Array.isArray(feeds)) {
+      setPeople(feeds);
+    }
+  }, [feeds]);
+
+  async function getFeedData() {
+    try {
+      const res = await axios.get(base_url + "/feeds", {
+        withCredentials: true,
+      });
+      setPeople(res?.data?.feeds);
+      dispatch(addFeeds(res?.data?.feeds));
+    } catch (error) {
+      console.error("error: ", error);
+    }
+  }
+
+  useEffect(() => {
+    getFeedData();
+  }, []);
 
   // Keep refs in sync with people array
   useEffect(() => {
@@ -78,7 +101,7 @@ function FeedCards({
       )}
 
       <div className="relative w-[95%] sm:w-[310px] h-[70vh] sm:h-[420px] flex justify-center">
-        {people.map((person, index) => {
+        {people?.map((person, index) => {
           const CardContent = (
             <div
               style={{
@@ -98,18 +121,15 @@ function FeedCards({
           );
 
           return isPreview ? (
-            <div
-              key={person._id}
-              className="absolute w-full h-full"
-            >
+            <div key={person?._id} className="absolute w-full h-full">
               {CardContent}
             </div>
           ) : (
             <TinderCard
               ref={cardRefs.current[index]}
-              key={person._id}
+              key={person?._id}
               preventSwipe={["down"]}
-              onSwipe={(dir) => handleCardLeft(dir, person._id)}
+              onSwipe={(dir) => handleCardLeft(dir, person?._id)}
               swipeRequirementType="position"
               className="absolute w-full h-full"
             >

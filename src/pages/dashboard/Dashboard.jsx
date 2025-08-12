@@ -8,13 +8,12 @@ import axios from "axios";
 import { addFeeds } from "../../utils/feedSlice";
 import { jwtDecode } from "jwt-decode";
 import DashboardHeader from "../../components/DashboardHeader";
+import { useGlobalVariable } from "../../context/GlobalContext";
+import { addRequests } from "../../utils/requestsSlice";
 
 const base_url = import.meta.env.VITE_APP_BACKEND_URL;
 
 function Dashboard() {
-  const feeds = useSelector((state) => state.feeds);
-  console.log("feeds in dashcboard: ", feeds);
-
   const [isProfileOpen, setIsProfileOpen] = useState(false);
 
   const navigate = useNavigate();
@@ -26,7 +25,6 @@ function Dashboard() {
       {},
       { withCredentials: true }
     );
-    console.log(res.data?.message);
   }
 
   useEffect(() => {
@@ -57,19 +55,15 @@ function Dashboard() {
     return null;
   }
 
-  async function getFeedData() {
-    try {
-      const res = await axios.get(base_url + "/feeds", {
-        withCredentials: true,
-      });
-      dispatch(addFeeds(res?.data?.feeds));
-    } catch (error) {
-      console.error("error: ", error);
-    }
+  async function getRequests() {
+    const res = await axios.get(`${base_url}/user/requests`, {
+      withCredentials: true,
+    });
+    dispatch(addRequests(res?.data?.requests));
   }
 
   useEffect(() => {
-    getFeedData();
+    getRequests();
   }, []);
 
   return (

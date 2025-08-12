@@ -1,28 +1,16 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { toast } from "react-toastify";
 import { useGlobalVariable } from "../../context/GlobalContext";
+import { useDispatch, useSelector } from "react-redux";
+import { addRequests, removeRequest } from "../../utils/requestsSlice";
 
 const base_url = import.meta.env.VITE_APP_BACKEND_URL;
 
 const Requests = () => {
-  const [requests, setRequests] = useState([]);
-  const { setRequestCount } = useGlobalVariable();
+  const requests = useSelector((state) => state.requests);
 
-  async function getRequests() {
-    const res = await axios.get(`${base_url}/user/request/received`, {
-      withCredentials: true,
-    });
-    console.log(res?.data?.requests);
-    setRequests(res?.data?.requests);
-    if (!toast.isActive("getRequest")) {
-      toast.success(res.data?.message, { toastId: "getRequest" });
-    }
-  }
-
-  useEffect(() => {
-    getRequests();
-  }, []);
+  const dispatch = useDispatch();
 
   const handleAccept = async (id) => {
     try {
@@ -31,7 +19,7 @@ const Requests = () => {
         {},
         { withCredentials: true }
       );
-      setRequests((prev) => prev.filter((r) => r._id !== id));
+      dispatch(removeRequest(id));
       if (!toast.isActive("reqAcceptToast")) {
         toast.success(res.data?.message || "Request accepted!", {
           toastId: "reqAcceptToast",
@@ -50,7 +38,7 @@ const Requests = () => {
         {},
         { withCredentials: true }
       );
-      setRequests((prev) => prev.filter((r) => r._id !== id));
+      dispatch(removeRequest(id));
       if (!toast.isActive("reqRejectToast")) {
         toast.success(res.data?.message || "Request rejected!", {
           toastId: "reqRejectToast",
@@ -62,10 +50,6 @@ const Requests = () => {
     }
   };
 
-  useEffect(() => {
-    setRequestCount(requests.length);
-  }, [requests]);
-
   return (
     <div className="px-5 sm:px-8 xl:px-0 w-full">
       <div className="max-w-4xl mx-auto rounded-2xl">
@@ -73,11 +57,11 @@ const Requests = () => {
           Pending Requests
         </h2>
 
-        {requests.length === 0 ? (
+        {requests?.length === 0 ? (
           <p className="text-center text-gray-500">No pending requests.</p>
         ) : (
           <div className="space-y-6">
-            {requests.map((req) => (
+            {requests?.map((req) => (
               <div
                 key={req._id}
                 className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 border rounded-xl p-5 bg-white shadow-lg hover:shadow-md transition"

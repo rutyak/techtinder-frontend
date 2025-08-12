@@ -13,7 +13,6 @@ const base_url = import.meta.env.VITE_APP_BACKEND_URL;
 
 const Profile = () => {
   const user = useSelector((state) => state.user);
-  console.log("user: ", user);
   const dispatch = useDispatch();
 
   const [isEditing, setIsEditing] = useState(false);
@@ -57,8 +56,6 @@ const Profile = () => {
           withCredentials: true,
         });
       }
-
-      console.log();
 
       const res = await axios.patch(
         `${base_url}/profile/edit`,

@@ -3,43 +3,16 @@ import ConnectionCard from "./ConnectionCard";
 import { useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { addConnections } from "../../utils/connectionsSlice";
 
 const base_url = import.meta.env.VITE_APP_BACKEND_URL;
 
-const dummyConnections = [
-  {
-    id: 1,
-    name: "Alice Johnson",
-    status: "Frontend Developer",
-    image: "https://randomuser.me/api/portraits/women/44.jpg",
-    online: true,
-  },
-  {
-    id: 2,
-    name: "Rohit Sharma",
-    status: "Backend Developer",
-    image: "https://randomuser.me/api/portraits/men/46.jpg",
-    online: false,
-  },
-  {
-    id: 3,
-    name: "Sarah Lee",
-    status: "UI/UX Designer",
-    image: "https://randomuser.me/api/portraits/women/52.jpg",
-    online: true,
-  },
-  {
-    id: 4,
-    name: "Kunal Deshmukh",
-    status: "Full Stack Developer",
-    image: "https://randomuser.me/api/portraits/men/40.jpg",
-    online: true,
-  },
-];
-
 function Connections() {
-  const [connections, setConnections] = useState([]);
+  const connections = useSelector((state) => state.connections);
   const [search, setSearch] = useState("");
+
+  const dispatch = useDispatch();
 
   async function getConnections() {
     try {
@@ -47,11 +20,7 @@ function Connections() {
         withCredentials: true,
       });
 
-      console.log(res.data);
-      setConnections(res.data?.data);
-      if (!toast.isActive("getConnections")) {
-        toast.success(res.data?.message, { toastId: "getConnections" });
-      }
+      dispatch(addConnections(res.data?.data));
     } catch (error) {
       toast.error(error.data?.message);
       consol.error(error);
@@ -86,8 +55,8 @@ function Connections() {
         </div>
 
         <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
-          {filteredConnections.length > 0 ? (
-            filteredConnections.map((user) => (
+          {filteredConnections?.length > 0 ? (
+            filteredConnections?.map((user) => (
               <ConnectionCard key={user?._id} user={user} />
             ))
           ) : (

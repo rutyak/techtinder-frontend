@@ -1,6 +1,8 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import userReducer from "./userSlice";
 import feedReducer from "./feedSlice";
+import requestsReducer from "./requestsSlice";
+import connectionsReducer from "./connectionsSlice";
 import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore } from "redux-persist";
 
@@ -11,7 +13,9 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   user: userReducer,
-  feeds: feedReducer
+  feeds: feedReducer,
+  connections: connectionsReducer,
+  requests: requestsReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

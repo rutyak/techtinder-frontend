@@ -11,7 +11,6 @@ function ChangePassword({ showPasswordFields, setShowPasswordFields }) {
   const [isLoading, setIsLoading] = useState(false);
 
   async function handlePasswordChange() {
-    console.log("handle change clicked");
     setIsLoading(true);
 
     try {

@@ -15,35 +15,69 @@ function Footer() {
       <div className="max-w-7xl mx-auto flex flex-col items-center">
         {/* Social Icons */}
         <div className="flex justify-center gap-6 mb-8">
-          <a href="#" aria-label="Facebook" className="p-2 rounded-full hover:bg-gray-700">
+          <a
+            href="#"
+            aria-label="Facebook"
+            className="p-2 rounded-full hover:bg-gray-700"
+          >
             <FacebookIcon className="w-6 h-6 hover:text-white" />
           </a>
-          <a href="#" aria-label="Twitter" className="p-2 rounded-full hover:bg-gray-700">
+          <a
+            href="#"
+            aria-label="Twitter"
+            className="p-2 rounded-full hover:bg-gray-700"
+          >
             <TwitterIcon className="w-6 h-6 hover:text-white" />
           </a>
-          <a href="#" aria-label="Instagram" className="p-2 rounded-full hover:bg-gray-700">
+          <a
+            href="#"
+            aria-label="Instagram"
+            className="p-2 rounded-full hover:bg-gray-700"
+          >
             <InstaIcon className="w-6 h-6 hover:text-white" />
           </a>
-          <a href="#" aria-label="YouTube" className="p-2 rounded-full hover:bg-gray-700">
+          <a
+            href="#"
+            aria-label="YouTube"
+            className="p-2 rounded-full hover:bg-gray-700"
+          >
             <YouTubeIcon className="w-6 h-6 hover:text-white" />
           </a>
         </div>
 
         {/* Navigation Links */}
         <nav className="flex flex-wrap justify-center gap-6 mb-8">
-          <Link to="/" className={linkStyle}>Home</Link>
-          <Link to="/about" className={linkStyle}>About</Link>
-          <Link to="/support" className={linkStyle}>Support</Link>
-          <Link to="/contact" className={linkStyle}>Contact Us</Link>
-          <Link to="/privacy-policy" className={linkStyle}>Privacy Policy</Link>
-          <Link to="/terms-of-service" className={linkStyle}>Terms of Service</Link>
+          <Link to="/" className={linkStyle}>
+            Home
+          </Link>
+          <Link to="/about" className={linkStyle}>
+            About
+          </Link>
+          <Link to="/support" className={linkStyle}>
+            Support
+          </Link>
+          <Link to="/contact" className={linkStyle}>
+            Contact Us
+          </Link>
+          <Link to="/privacy-policy" className={linkStyle}>
+            Privacy Policy
+          </Link>
+          <Link to="/terms-of-service" className={linkStyle}>
+            Terms of Service
+          </Link>
         </nav>
 
-        {/* Payment & Policy Links for Razorpay */}
+        {/* Payment & Subscription Policies for Razorpay */}
         <div className="flex flex-wrap justify-center gap-6 mb-8">
-          <Link to="/refund-policy" className={linkStyle}>Refund Policy</Link>
-          <Link to="/shipping-policy" className={linkStyle}>Shipping Policy</Link>
-          <Link to="/cancellation-policy" className={linkStyle}>Cancellation Policy</Link>
+          <Link to="/subscription-terms" className={linkStyle}>
+            Subscription Terms
+          </Link>
+          <Link to="/refund-policy" className={linkStyle}>
+            Refund Policy
+          </Link>
+          <Link to="/cancellation-policy" className={linkStyle}>
+            Cancellation Policy
+          </Link>
         </div>
 
         <div className="w-full border-t border-gray-800 mb-8"></div>

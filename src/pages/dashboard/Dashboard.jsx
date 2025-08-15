@@ -29,10 +29,13 @@ function Dashboard() {
 
   useEffect(() => {
     let cookies = document.cookie;
+    console.log("cookies", document.cookie);
     let token = cookies
       .split(";")
       .find((row) => row.startsWith("jwtToken="))
       ?.split("=")[1];
+
+    console.log("token: ", token);
 
     if (!token) {
       navigate("/", { replace: true });

@@ -20,7 +20,7 @@ function Login() {
   useEffect(() => {
     let token = document.cookie
       .split(";")
-      .find((row) => row.trim().startsWith("jwtToken="))
+      .find((row) => row.trim().startsWith("token="))
       ?.split("=")[1];
     if (token) {
       navigate("/dashboard", { replace: true });
@@ -78,7 +78,11 @@ function Login() {
         }
 
         setLoginToggle(false);
-        navigate(authView === "login" ? "/dashboard" : "/");
+        console.log("res.status: ", res.status);
+        console.log("authView: ", authView);
+        if (res.status === 200) {
+          navigate(authView === "login" ? "/dashboard" : "/");
+        }
         setFormData({});
       } else if (authView === "forgotEmail") {
         // Step 1: Verify email

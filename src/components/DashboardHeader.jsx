@@ -5,7 +5,6 @@ import { IoIosSearch } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import Menu from "../pages/menu/Menu";
-import { useGlobalVariable } from "../context/GlobalContext";
 
 function DashboardHeader() {
   const user = useSelector((state) => state.user);

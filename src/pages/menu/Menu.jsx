@@ -8,6 +8,7 @@ import {
   FiUserPlus,
   FiLayers,
 } from "react-icons/fi";
+import { MdOutlineWorkspacePremium } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
@@ -92,6 +93,15 @@ function Menu({ setIsOpenDropdown }) {
         >
           <FiUser className="text-blue-500" />
           Profile
+        </Link>
+
+        <Link
+          className="w-full flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 transition-all"
+          to="/dashboard/premium"
+          onClick={handleMenu}
+        >
+          <MdOutlineWorkspacePremium className="text-blue-500" />
+          Premium
         </Link>
 
         <hr className="my-1 border-gray-200" />

@@ -10,6 +10,7 @@ import { jwtDecode } from "jwt-decode";
 import DashboardHeader from "../../components/DashboardHeader";
 import { useGlobalVariable } from "../../context/GlobalContext";
 import { addRequests } from "../../utils/requestsSlice";
+import { removeUser } from "../../utils/userSlice";
 
 const base_url = import.meta.env.VITE_APP_BACKEND_URL;
 
@@ -20,6 +21,7 @@ function Dashboard() {
   const dispatch = useDispatch();
 
   async function Logout() {
+    dispatch(removeUser());
     const res = await axios.post(
       base_url + "/logout",
       {},
@@ -29,13 +31,10 @@ function Dashboard() {
 
   useEffect(() => {
     let cookies = document.cookie;
-    console.log("cookies", document.cookie);
     let token = cookies
       .split(";")
       .find((row) => row.startsWith("jwtToken="))
       ?.split("=")[1];
-
-    console.log("token: ", token);
 
     if (!token) {
       navigate("/", { replace: true });
@@ -57,17 +56,6 @@ function Dashboard() {
   if (!document.cookie) {
     return null;
   }
-
-  async function getRequests() {
-    const res = await axios.get(`${base_url}/user/requests`, {
-      withCredentials: true,
-    });
-    dispatch(addRequests(res?.data?.requests));
-  }
-
-  useEffect(() => {
-    getRequests();
-  }, []);
 
   return (
     <div className="h-screen flex flex-col lg:flex-row items-center">

@@ -15,6 +15,7 @@ import Connections from "./pages/connections/Connections.jsx";
 import boyImage from "./assets/dhanya.jpg";
 import FeedCards from "./components/FeedCard/FeedCards.jsx";
 import { GlobalProvider } from "./context/GlobalContext.jsx";
+import Premium from "./pages/premium/Premium.jsx";
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: "profile",
         element: <Profile />,
+      },
+      {
+        path: "premium",
+        element: <Premium />,
       },
     ],
   },

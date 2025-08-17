@@ -73,13 +73,12 @@ function Login() {
           toast.success(res.data?.message, { toastId: "authToast" });
         }
 
+
         if (res.data?.user) {
           dispatch(addUser(res.data?.user));
         }
 
         setLoginToggle(false);
-        console.log("res.status: ", res.status);
-        console.log("authView: ", authView);
         if (res.status === 200) {
           navigate(authView === "login" ? "/dashboard" : "/");
         }

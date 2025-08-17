@@ -10,30 +10,16 @@ import Herosection from "./Herosection";
 function Welcome() {
   const [isScrollingUp, setIsScrollingUp] = useState(false);
   const userData = useSelector((state) => state.user);
+
+  console.log("userData in welcome: ", userData);
+
   const navigate = useNavigate();
 
-  console.log("document cookie: ", document.cookie);
-
   useEffect(() => {
-    const checkAuth = () => {
-      const cookies = document.cookie.split(";").reduce((acc, cookie) => {
-        const [key, value] = cookie.split("=");
-        acc[key] = value;
-        return acc;
-      }, {});
-
-      console.log("cookies object:", cookies);
-
-      const token = cookies["jwtToken"];
-      console.log("token in welcome:", token);
-
-      if (token) {
-        navigate("/dashboard");
-      }
-    };
-
-    checkAuth();
-  }, [navigate]);
+    if (userData !== null) {
+      navigate("/dashboard");
+    }
+  }, []);
 
   const backgroundStyles = {
     backgroundImage: `url(${bgImage})`,

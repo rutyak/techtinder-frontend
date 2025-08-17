@@ -11,9 +11,6 @@ function DashboardHeader() {
 
   const requests = useSelector((state) => state.requests);
 
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-
   const [isOpenDropdown, setIsOpenDropdown] = useState(false);
 
   return (
@@ -43,7 +40,7 @@ function DashboardHeader() {
         <Link to="/dashboard/requests" className="relative cursor-pointer">
           <HiOutlineInbox className="text-2xl text-gray-500 md:text-white" />
           <span className="absolute -top-1 -right-1 bg-red-500 text-gray-500 md:text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
-            {requests.length}
+            {requests?.length}
           </span>
         </Link>
       </div>

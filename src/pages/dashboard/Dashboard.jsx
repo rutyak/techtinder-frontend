@@ -7,8 +7,6 @@ import { jwtDecode } from "jwt-decode";
 import DashboardHeader from "../../components/DashboardHeader";
 import { removeUser } from "../../utils/userSlice";
 
-const base_url = import.meta.env.VITE_APP_BACKEND_URL;
-
 function Dashboard() {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
 

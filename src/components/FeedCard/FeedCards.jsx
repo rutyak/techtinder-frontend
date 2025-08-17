@@ -88,8 +88,8 @@ function FeedCards({
   async function swipe(dir) {
     if (isPreview) return;
     const cardsLeft = cardRefs.current.filter((ref) => ref.current);
-    if (cardsLeft.length) {
-      const CardToSwipe = cardsLeft[cardsLeft.length - 1].current;
+    if (cardsLeft?.length) {
+      const CardToSwipe = cardsLeft[cardsLeft?.length - 1].current;
       await CardToSwipe.swipe(dir);
     }
   }

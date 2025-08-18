@@ -1,19 +1,34 @@
 import boyImage from "../../assets/boy.jpg";
 import { useSelector } from "react-redux";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const base_url = import.meta.env.VITE_APP_BACKEND_URL;
 
-function ChatPanel({ setIsProfileOpen }) {
+function ChatList({ setIsProfileOpen }) {
   const user = useSelector((state) => state.user);
+  const [isChatWindowOpen, setIsChatWindowOpen] = useState(false);
+
+  const navigate = useNavigate();
+  // const { setIsChatWindowOpen } = useGlobalVariable();
+
+  function handleClick() {
+    if (window.innerWidth < 1024) {
+      navigate("/chatwindow");
+    } else {
+      navigate("/dashboard/chatwindow");
+    }
+  }
 
   return (
-    <div className="flex-1 overflow-y-auto md:bg-gray-50 hidden lg:block">
-      <h3 className="px-4 pt-4 pb-2 text-gray-500 font-medium">Chats</h3>
+    <div className="h-full flex-1 overflow-y-auto md:bg-gray-50">
+      <h3 className="px-4 pt-2 pb-2 text-gray-500 font-medium">Chats</h3>
       <div className="space-y-2 px-2">
         {[...Array(5)].map((_, index) => (
           <div
             key={index}
             className="flex justify-between gap-3 p-3 rounded-lg hover:bg-blue-100 cursor-pointer transition-colors"
+            onClick={handleClick}
           >
             <div className="flex items-center gap-4">
               <div className="relative">
@@ -27,7 +42,7 @@ function ChatPanel({ setIsProfileOpen }) {
               <div>
                 <div className="font-semibold text-gray-800">Kevin</div>
                 <div className="text-sm text-gray-500 truncate max-w-[180px]">
-                  New Match! Say Hello
+                  New Match! Say Hello 👋
                 </div>
               </div>
             </div>
@@ -39,4 +54,4 @@ function ChatPanel({ setIsProfileOpen }) {
   );
 }
 
-export default ChatPanel;
+export default ChatList;

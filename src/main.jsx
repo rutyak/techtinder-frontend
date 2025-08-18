@@ -16,6 +16,8 @@ import boyImage from "./assets/dhanya.jpg";
 import FeedCards from "./components/FeedCard/FeedCards.jsx";
 import { GlobalProvider } from "./context/GlobalContext.jsx";
 import Premium from "./pages/premium/Premium.jsx";
+import ChatWindow from "./pages/chatpanel/ChatWindow.jsx";
+import ChatList from "./pages/chatpanel/ChatList.jsx";
 
 const router = createBrowserRouter([
   {
@@ -46,7 +48,19 @@ const router = createBrowserRouter([
         path: "premium",
         element: <Premium />,
       },
+      {
+        path: "chatwindow",
+        element: <ChatWindow />,
+      },
+      {
+        path: "chatlist",
+        element: <ChatList />,
+      },
     ],
+  },
+  {
+    path: "/chatwindow",
+    element: <ChatWindow />,
   },
 ]);
 

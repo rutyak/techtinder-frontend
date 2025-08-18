@@ -74,7 +74,7 @@ const Profile = () => {
 
   return (
     <div className="h-screen xl:flex xl:items-center px-3 sm:px-8 py-3 w-full max-w-6xl mx-auto">
-      <div className="w-full flex flex-col xl:flex-row gap-8 mt-9 lg:mt-4">
+      <div className="w-full flex flex-col xl:flex-row gap-8 lg:mt-4">
         <div className="w-full xl:w-1/2 bg-white rounded-xl shadow-lg p-5 md:p-6 border border-gray-600 sm:border-none xl:max-h-[650px] xl:overflow-auto">
           <div className="flex justify-between items-baseline mb-6">
             <h2 className="text-lg md:text-xl xl:text-xl font-bold text-blue-700 mb-6 text-center">
@@ -197,7 +197,7 @@ const Profile = () => {
         </div>
 
         {/* Preview Section */}
-        <div className="w-full xl:w-1/2 rounded-xl p-2 xl:p-6 flex flex-col items-center">
+        <div className="h-[650px] w-full xl:w-1/2 rounded-xl p-2 xl:p-6 flex flex-col items-center">
           <h2 className="text-xl xl:text-2xl font-bold text-blue-700 mb-6 text-center border-b-4 border-blue-200 pb-2 inline-block">
             Preview
           </h2>

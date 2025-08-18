@@ -95,12 +95,12 @@ function FeedCards({
   }
 
   return (
-    <div className="w-full flex flex-col items-center justify-between sm:gap-6">
+    <div className="h-full w-full flex flex-col items-center justify-between sm:gap-6">
       {showLabels && !isPreview && (
         <SiTinder size={28} className="text-gray-300 my-3 hidden sm:block" />
       )}
 
-      <div className="relative w-[95%] sm:w-[310px] h-[70vh] sm:h-[420px] flex justify-center">
+      <div className="relative w-[95%] sm:w-[310px] h-full sm:h-[420px] flex justify-center">
         {people?.map((person, index) => {
           const CardContent = (
             <div

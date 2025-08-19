@@ -3,12 +3,47 @@ import ChatPanel from "../chatpanel/ChatList";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import axios from "axios";
-import { jwtDecode } from "jwt-decode";
 import DashboardHeader from "../../components/DashboardHeader";
-import { removeUser } from "../../utils/userSlice";
+import { addConnections } from "../../utils/connectionsSlice";
+import { toast } from "react-toastify";
+import { addRequests } from "../../utils/requestsSlice";
+
+const base_url = import.meta.env.VITE_APP_BACKEND_URL;
 
 function Dashboard() {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+
+  const dispatch = useDispatch();
+
+  // it is here because we need to update count of requests
+  async function getRequests() {
+    try {
+      const res = await axios.get(`${base_url}/user/requests`, {
+        withCredentials: true,
+      });
+      dispatch(addRequests(res.data?.requests));
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async function getConnections() {
+    try {
+      const res = await axios.get(`${base_url}/user/connections`, {
+        withCredentials: true,
+      });
+
+      dispatch(addConnections(res.data?.data));
+    } catch (error) {
+      toast.error(error.data?.message);
+      consol.error(error);
+    }
+  }
+
+  useEffect(() => {
+    getConnections();
+    getRequests();
+  }, []);
 
   return (
     <div className="h-screen flex flex-col lg:flex-row items-center">

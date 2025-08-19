@@ -1,12 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { AiOutlineSend } from "react-icons/ai";
 import { CiSearch } from "react-icons/ci";
 import boyImage from "../../assets/boy.jpg";
 import chatbg from "../../assets/chatbg.png";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { HiArrowSmallLeft } from "react-icons/hi2";
+import { createSocketConnection } from "../../utils/socket";
 
 function ChatWindow() {
+  const { targetUserId } = useParams();
+  const user = useSelector((state) => state.user);
+
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState([
     { id: 1, text: "Hey Kevin!", sender: "me" },
@@ -16,6 +21,28 @@ function ChatWindow() {
   ]);
 
   const navigate = useNavigate();
+  const location = useLocation();
+  const { targetUser } = location.state || {};
+
+  console.log("chatwindow targeted user: ", targetUser);
+
+  const userId = user?._id;
+
+  useEffect(() => {
+    if (!user._id) return;
+
+    const socket = createSocketConnection();
+    //as soon as page load connection is made and joinChat emits
+    socket.emit("joinChat", {
+      userId,
+      targetUserId: targetUser.id,
+      firstname: user.firstname,
+    });
+
+    return () => {
+      socket.disconnect();
+    };
+  }, [userId, targetUser.id]);
 
   function handleSend() {
     if (input.trim() === "") return;
@@ -34,12 +61,14 @@ function ChatWindow() {
             onClick={() => navigate("/dashboard")}
           />
           <img
-            src={boyImage}
+            src={targetUser.imageurl}
             alt="user-image"
             className="w-11 h-11 rounded-full object-cover border-2 border-blue-500"
           />
           <div className="flex flex-col">
-            <div className="font-sm font-semibold text-gray-800">Kevin</div>
+            <div className="font-sm font-semibold text-gray-800">
+              {targetUser.firstname}
+            </div>
             <div className="text-xs text-green-700">Online</div>
           </div>
         </div>

@@ -15,6 +15,8 @@ const Profile = () => {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
+  console.log("user data in profile: ", user);
+
   const [isEditing, setIsEditing] = useState(false);
   const [imagePreview, setImagePreview] = useState("");
   const [profileImageFile, setProfileImageFile] = useState();
@@ -23,14 +25,16 @@ const Profile = () => {
     user.skills?.length ? user.skills : ["HTML", "CSS", "JS"]
   );
 
+  const { firstname, lastname, age, gender, job, imageurl, skills } = user;
+
   const [formData, setFormData] = useState({
-    firstname: user.firstname,
-    lastname: user.lastname,
-    age: user.age,
-    gender: user.gender,
-    job: user.job,
-    imageurl: user.imageurl,
-    skills: user.skills,
+    firstname,
+    lastname,
+    age,
+    gender,
+    job,
+    imageurl,
+    skills,
   });
 
   const handleImageUpload = (e) => {
@@ -203,12 +207,12 @@ const Profile = () => {
           </h2>
           <FeedCards
             profile={{
-              firstname: formData.firstname || user.firstname,
-              lastname: formData.lastname || user.lastname,
-              age: formData.age || user.age,
-              job: tags.length ? formData.job : "Not specified",
+              firstname: formData?.firstname,
+              lastname: formData?.lastname,
+              age: formData?.age,
+              job: tags.length ? formData?.job : "Not specified",
               distance: 0,
-              imageurl: imagePreview || user?.imageurl,
+              imageurl: imagePreview || formData?.imageurl,
             }}
             showActions={true}
             showLabels={true}

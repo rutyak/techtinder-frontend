@@ -25,7 +25,7 @@ function Herosection({ isScrollingUp, setIsScrollingUp }) {
         isScrollingUp ? "disappear-animation" : ""
       }`}
     >
-      <h1 className="text-2xl sm:text-4xl md:text-6xl  lg:text-[80px] font-extrabold mb-4">
+      <h1 className="text-3xl sm:text-4xl md:text-6xl  lg:text-[80px] font-extrabold mb-4">
         <span className="text-white">Match. Connect. Hired.</span>
       </h1>
 

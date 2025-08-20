@@ -14,8 +14,6 @@ function ChatList({ setIsProfileOpen }) {
   const [search, setSearch] = useState("");
   const [isChatWindowOpen, setIsChatWindowOpen] = useState(false);
 
-  console.log("connections: ", connections);
-
   const navigate = useNavigate();
 
   const dispatch = useDispatch();

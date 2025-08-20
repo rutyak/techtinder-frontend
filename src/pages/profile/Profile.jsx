@@ -15,8 +15,6 @@ const Profile = () => {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
-  console.log("user data in profile: ", user);
-
   const [isEditing, setIsEditing] = useState(false);
   const [imagePreview, setImagePreview] = useState("");
   const [profileImageFile, setProfileImageFile] = useState();

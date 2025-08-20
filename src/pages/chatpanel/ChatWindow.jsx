@@ -1,42 +1,47 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { AiOutlineSend } from "react-icons/ai";
 import { CiSearch } from "react-icons/ci";
-import boyImage from "../../assets/boy.jpg";
 import chatbg from "../../assets/chatbg.png";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { HiArrowSmallLeft } from "react-icons/hi2";
 import { createSocketConnection } from "../../utils/socket";
 
 function ChatWindow() {
-  const { targetUserId } = useParams();
   const user = useSelector((state) => state.user);
 
-  const [input, setInput] = useState("");
-  const [messages, setMessages] = useState([
-    { id: 1, text: "Hey Kevin!", sender: "me" },
-    { id: 2, text: "Hi! How are you?", sender: "other" },
-    { id: 3, text: "I'm good, just working on a project.", sender: "me" },
-    { id: 4, text: "Nice! Keep it up 💪", sender: "other" },
-  ]);
+  const [message, setMessage] = useState("");
+  const [messages, setMessages] = useState([]);
 
   const navigate = useNavigate();
   const location = useLocation();
   const { targetUser } = location.state || {};
 
-  console.log("chatwindow targeted user: ", targetUser);
-
   const userId = user?._id;
 
+  const socketRef = useRef(null);
+
   useEffect(() => {
-    if (!user._id) return;
+    if (!user._id || !targetUser.id) return;
 
     const socket = createSocketConnection();
-    //as soon as page load connection is made and joinChat emits
+    socketRef.current = socket;
+
     socket.emit("joinChat", {
-      userId,
       targetUserId: targetUser.id,
       firstname: user.firstname,
+    });
+
+    //receive message
+    socket.on("messageReceive", ({ firstname, text, senderId }) => {
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: Date.now(),
+          text,
+          sender: senderId === userId ? "me" : "other",
+        },
+      ]);
     });
 
     return () => {
@@ -45,10 +50,15 @@ function ChatWindow() {
   }, [userId, targetUser.id]);
 
   function handleSend() {
-    if (input.trim() === "") return;
+    if (message.trim() === "" || !socketRef.current) return;
 
-    setMessages([...messages, { id: Date.now(), text: input, sender: "me" }]);
-    setInput("");
+    socketRef.current.emit("sendMessage", {
+      firstname: user.firstname,
+      targetUserId: targetUser.id,
+      text: message,
+    });
+
+    setMessage("");
   }
 
   return (
@@ -86,7 +96,7 @@ function ChatWindow() {
         }}
       >
         <div className="flex flex-col gap-3">
-          {messages.map((msg) => (
+          {messages?.map((msg) => (
             <div
               key={msg.id}
               className={`flex ${
@@ -111,8 +121,8 @@ function ChatWindow() {
         <div className="w-full max-w-6xl mx-auto flex items-center gap-3">
           <input
             type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
             placeholder="Type a message..."
             className="flex-1 border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             onKeyDown={(e) => {

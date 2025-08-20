@@ -11,8 +11,6 @@ import { PersistGate } from "redux-persist/integration/react";
 import Dashboard from "./pages/dashboard/Dashboard.jsx";
 import Requests from "./pages/requests/Requests.jsx";
 import Profile from "./pages/profile/Profile.jsx";
-import Connections from "./pages/connections/Connections.jsx";
-import boyImage from "./assets/dhanya.jpg";
 import FeedCards from "./components/FeedCard/FeedCards.jsx";
 import { GlobalProvider } from "./context/GlobalContext.jsx";
 import Premium from "./pages/premium/Premium.jsx";
@@ -35,10 +33,6 @@ const router = createBrowserRouter([
       {
         path: "requests",
         element: <Requests />,
-      },
-      {
-        path: "connections",
-        element: <Connections />,
       },
       {
         path: "profile",

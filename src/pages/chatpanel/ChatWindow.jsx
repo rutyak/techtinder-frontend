@@ -6,12 +6,16 @@ import chatbg from "../../assets/chatbg.png";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { HiArrowSmallLeft } from "react-icons/hi2";
 import { createSocketConnection } from "../../utils/socket";
+import axios from "axios";
+
+const base_url = import.meta.env.VITE_APP_BACKEND_URL;
 
 function ChatWindow() {
   const user = useSelector((state) => state.user);
 
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
+  const [isOnline, setIsOnline] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -20,6 +24,32 @@ function ChatWindow() {
   const userId = user?._id;
 
   const socketRef = useRef(null);
+  const bottomRef = useRef(null);
+
+  async function getChat() {
+    try {
+      const res = await axios.get(`${base_url}/chat/${targetUser.id}`, {
+        withCredentials: true,
+      });
+
+      const chat = res.data?.chat?.[0];
+      const messages = chat?.messages;
+      const formattedMessages =
+        messages?.map((m) => ({
+          id: m._id,
+          text: m.text,
+          sender: m.senderId._id === userId ? "me" : "other",
+        })) || [];
+
+      setMessages(formattedMessages);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  useEffect(() => {
+    getChat();
+  }, [targetUser.id]);
 
   useEffect(() => {
     if (!user._id || !targetUser.id) return;
@@ -48,6 +78,19 @@ function ChatWindow() {
       socket.disconnect();
     };
   }, [userId, targetUser.id]);
+
+  useEffect(() => {
+    if (!targetUser.id) return;
+
+    socketRef.current.emit("checkOnline", targetUser.id, (isOnline) => {
+      console.log("res from socket for online: ", isOnline);
+      setIsOnline(isOnline);
+    });
+  }, [targetUser.id]);
+
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
 
   function handleSend() {
     if (message.trim() === "" || !socketRef.current) return;
@@ -79,7 +122,7 @@ function ChatWindow() {
             <div className="font-sm font-semibold text-gray-800">
               {targetUser.firstname}
             </div>
-            <div className="text-xs text-green-700">Online</div>
+            {isOnline && <div className="text-xs text-green-700">Online</div>}
           </div>
         </div>
         <CiSearch className="text-xl text-gray-600 cursor-pointer hover:text-blue-500" />
@@ -114,6 +157,7 @@ function ChatWindow() {
               </div>
             </div>
           ))}
+          <div ref={bottomRef} />
         </div>
       </div>
 

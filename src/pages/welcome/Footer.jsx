@@ -50,19 +50,19 @@ function Footer() {
           <Link to="/" className={linkStyle}>
             Home
           </Link>
-          <Link to="/about" className={linkStyle}>
+          <Link to="/" className={linkStyle}>
             About
           </Link>
-          <Link to="/support" className={linkStyle}>
+          <Link to="/" className={linkStyle}>
             Support
           </Link>
-          <Link to="/contact" className={linkStyle}>
+          <Link to="/" className={linkStyle}>
             Contact Us
           </Link>
-          <Link to="/privacy-policy" className={linkStyle}>
+          <Link to="/" className={linkStyle}>
             Privacy Policy
           </Link>
-          <Link to="/terms-of-service" className={linkStyle}>
+          <Link to="/" className={linkStyle}>
             Terms of Service
           </Link>
         </nav>

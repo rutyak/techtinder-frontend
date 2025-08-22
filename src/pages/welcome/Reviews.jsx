@@ -1,9 +1,5 @@
 import {
   Autoplay,
-  Navigation,
-  Pagination,
-  Scrollbar,
-  A11y,
 } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -81,7 +77,7 @@ function Reviews() {
   ];
 
   return (
-    <div className="px-4 py-8 max-w-[1400px] mx-auto relative">
+    <div data-testid="review" className="px-4 py-8 max-w-[1400px] mx-auto relative">
       <Swiper
         modules={[Autoplay]}
         spaceBetween={20}

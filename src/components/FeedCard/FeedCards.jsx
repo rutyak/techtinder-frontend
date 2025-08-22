@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { addFeeds, removeFeeds } from "../../utils/feedSlice";
-import { BlueTick } from "../../assets/Icons";
+import { BlueTick, TechTinderIcon, TechTinderIconInner } from "../../assets/Icons";
 
 const base_url = import.meta.env.VITE_APP_BACKEND_URL;
 
@@ -105,7 +105,7 @@ function FeedCards({
   return (
     <div className="h-full w-full flex flex-col items-center justify-between sm:gap-6">
       {showLabels && !isPreview && (
-        <SiTinder size={28} className="text-gray-300 my-3 hidden sm:block" />
+        <TechTinderIconInner className="h-8 w-8 text-gray-300 my-3 hidden sm:block" />
       )}
 
       <div className="relative w-[95%] sm:w-[310px] h-full sm:h-[420px] flex justify-center">

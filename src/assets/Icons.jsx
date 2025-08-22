@@ -64,11 +64,110 @@ export const YouTubeIcon = () => (
   </svg>
 );
 
-export const TinderIcon = () => (
-  <path
-    d="M31.5 49.6C55 41.5 59 20.4 56 1c0-.7.6-1.2 1.2-1C79.7 11 105 35 105 71c0 27.6-21.4 52-52.5 52a50 50 0 0 1-28.2-92.7c.6-.4 1.4 0 1.4.7.3 3.7 1.3 13 5.4 18.6h.4z"
-    fill="var(--color--white, inherit)"
-  ></path>
+export const TechTinderIcon = ({ className }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className={className}
+    viewBox="0 0 58 56"
+    role="img"
+    aria-label="Blue flame"
+  >
+    <defs>
+      <linearGradient id="fg" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#2F7EF2" />
+        <stop offset="1" stop-color="#1170D6" />
+      </linearGradient>
+      <linearGradient id="ig" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#BFF4FF" />
+        <stop offset="1" stop-color="#82E6FF" />
+      </linearGradient>
+      <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+        <feDropShadow
+          dx="0"
+          dy="2"
+          stdDeviation="2"
+          flood-color="#000"
+          flood-opacity="0.18"
+        />
+      </filter>
+    </defs>
+
+    <path
+      d="M32 4
+       C26 14 18 18 14 28
+       C10 38 14 50 32 56
+       C50 50 54 38 50 28
+       C46 18 38 14 32 4Z"
+      fill="url(#fg)"
+      stroke="#0c3a7a"
+      stroke-width="1.2"
+      filter="url(#shadow)"
+    />
+
+    <path
+      d="M32 18
+       C29 24 24 26 22 32
+       C20 38 24 44 32 46
+       C40 44 44 38 42 32
+       C40 28 36 26 32 18Z"
+      fill="url(#ig)"
+    />
+
+    <path
+      d="M24.6 17.2c0-.6.7-2.6 2.6-4.2-0.2 1.2.2 3.4 1.1 4.9-1.7.1-3-.2-3.7-0.7z"
+      fill="#0f5bb3"
+      opacity="0.9"
+    />
+  </svg>
+);
+
+export const TechTinderIconInner = ({ className }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className={className}
+    viewBox="0 0 58 56"
+    role="img"
+    aria-label="Light gray flame"
+  >
+    <defs>
+      <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+        <feDropShadow
+          dx="0"
+          dy="2"
+          stdDeviation="2"
+          floodColor="#000"
+          floodOpacity="0.18"
+        />
+      </filter>
+    </defs>
+
+    <path
+      d="M32 4
+       C26 14 18 18 14 28
+       C10 38 14 50 32 56
+       C50 50 54 38 50 28
+       C46 18 38 14 32 4Z"
+      fill="#d1d5dc"
+      stroke="#F3F4F6"
+      strokeWidth="1.2"
+      filter="url(#shadow)"
+    />
+
+    <path
+      d="M32 18
+       C29 24 24 26 22 32
+       C20 38 24 44 32 46
+       C40 44 44 38 42 32
+       C40 28 36 26 32 18Z"
+      fill="#F3F4F6"
+    />
+
+    <path
+      d="M24.6 17.2c0-.6.7-2.6 2.6-4.2-0.2 1.2.2 3.4 1.1 4.9-1.7.1-3-.2-3.7-0.7z"
+      fill="#d1d5dc"
+      opacity="0.9"
+    />
+  </svg>
 );
 
 export const BlueTick = () => (

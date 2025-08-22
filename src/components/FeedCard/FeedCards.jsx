@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { addFeeds, removeFeeds } from "../../utils/feedSlice";
+import { BlueTick } from "../../assets/Icons";
 
 const base_url = import.meta.env.VITE_APP_BACKEND_URL;
 
@@ -18,9 +19,14 @@ function FeedCards({
   showLabels = true,
   isPreview = false,
 }) {
+  console.log("profile from preview: ", profile);
+
   const feeds = useSelector((state) => state.feeds);
 
   const [people, setPeople] = useState(profile ? [profile] : []);
+
+  console.log("people from profile", people);
+
   const cardRefs = useRef([]);
   const dispatch = useDispatch();
 
@@ -43,7 +49,9 @@ function FeedCards({
   }
 
   useEffect(() => {
-    getFeedData();
+    if (!profile) {
+      getFeedData();
+    }
   }, []);
 
   // Keep refs in sync with people array
@@ -112,10 +120,16 @@ function FeedCards({
               className="w-full h-full rounded-2xl flex items-end p-4 text-white shadow-lg"
             >
               <div className="bg-black/40 p-3 rounded-lg">
-                <h2 className="text-xl font-bold">
+                <h2 className="text-xl font-bold flex items-center gap-2">
                   {person?.firstname} {person?.lastname}, {person?.age}
+                  {person?.isPremium && <BlueTick />}
                 </h2>
                 {showLabels && <p className="text-sm">{person.job}</p>}
+                {person?.isPremium && (
+                  <p className="text-xs text-blue-300 mt-1">
+                    • Premium Verified
+                  </p>
+                )}
               </div>
             </div>
           );

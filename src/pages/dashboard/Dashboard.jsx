@@ -46,7 +46,7 @@ function Dashboard() {
   }, []);
 
   return (
-    <div className="h-screen flex flex-col lg:flex-row items-center">
+    <div className="h-[100dvh] flex flex-col lg:flex-row items-center">
       <div className="relative lg:fixed z-50 w-full h-[65px] lg:h-screen lg:max-w-[340px] flex flex-col border-r border-gray-200">
         <DashboardHeader />
         <div className="hidden lg:block">
@@ -54,7 +54,7 @@ function Dashboard() {
         </div>
       </div>
 
-      <div className="lg:min-h-screen relative flex-1 w-full sm:bg-gray-100 overflow-auto lg:ml-[340px]">
+      <div className="flex-1 lg:min-h-screen relative w-full sm:bg-gray-100 overflow-auto lg:ml-[340px]">
         <Outlet />
       </div>
     </div>

@@ -78,7 +78,7 @@ const Profile = () => {
     <div className="h-screen xl:flex xl:items-center px-3 sm:px-8 py-3 w-full max-w-6xl mx-auto">
       <div className="w-full flex flex-col xl:flex-row gap-8 lg:mt-4">
         <div className="w-full xl:w-1/2 bg-white rounded-xl shadow-lg p-5 md:p-6 border border-gray-600 sm:border-none xl:max-h-[650px] xl:overflow-auto">
-          <div className="flex justify-between items-baseline mb-6">
+          <div className="flex justify-between items-baseline">
             <h2 className="text-lg md:text-xl xl:text-xl font-bold text-blue-700 mb-6 text-center">
               My Profile
             </h2>
@@ -115,7 +115,7 @@ const Profile = () => {
             <img
               src={imagePreview || user?.imageurl}
               alt="Profile"
-              className="w-28 h-28 sm:w-36 sm:h-36 rounded-full object-cover border-4 border-blue-100 mb-4"
+              className="w-28 h-28 sm:w-36 sm:h-36 rounded-full object-cover border-4 border-blue-100 object-top"
             />
             {isEditing && (
               <label className="cursor-pointer px-4 py-2 border rounded-lg text-blue-500 border-blue-500 hover:bg-blue-50 text-sm">

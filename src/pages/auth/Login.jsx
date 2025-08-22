@@ -73,7 +73,6 @@ function Login() {
           toast.success(res.data?.message, { toastId: "authToast" });
         }
 
-
         if (res.data?.user) {
           dispatch(addUser(res.data?.user));
         }
@@ -152,7 +151,7 @@ function Login() {
                       type="email"
                       name="email"
                       placeholder="Email Address"
-                      className="w-full p-2 rounded-lg border border-gray-400"
+                      className="w-full p-2 rounded-lg border border-gray-400 placeholder:text-gray-400"
                       onChange={handleChanges}
                       required
                     />
@@ -160,7 +159,7 @@ function Login() {
                       type="password"
                       name="password"
                       placeholder="Enter password"
-                      className="w-full p-2 rounded-lg border border-gray-400"
+                      className="w-full p-2 rounded-lg border border-gray-400 placeholder:text-gray-400"
                       onChange={handleChanges}
                       required
                     />
@@ -182,7 +181,7 @@ function Login() {
                       type="text"
                       name="firstname"
                       placeholder="Enter first name"
-                      className="w-full p-2 rounded-lg border border-gray-400"
+                      className="w-full p-2 rounded-lg border border-gray-400 placeholder:text-gray-400"
                       onChange={handleChanges}
                       required
                     />
@@ -190,7 +189,7 @@ function Login() {
                       type="text"
                       name="lastname"
                       placeholder="Enter last name"
-                      className="w-full p-2 rounded-lg border border-gray-400"
+                      className="w-full p-2 rounded-lg border border-gray-400 placeholder:text-gray-400"
                       onChange={handleChanges}
                       required
                     />
@@ -198,7 +197,7 @@ function Login() {
                       type="email"
                       name="email"
                       placeholder="Email Address"
-                      className="w-full p-2 rounded-lg border border-gray-400"
+                      className="w-full p-2 rounded-lg border border-gray-400 placeholder:text-gray-400"
                       onChange={handleChanges}
                       required
                     />
@@ -206,7 +205,7 @@ function Login() {
                       type="password"
                       name="password"
                       placeholder="Enter password"
-                      className="w-full p-2 rounded-lg border border-gray-400"
+                      className="w-full p-2 rounded-lg border border-gray-400 placeholder:text-gray-400"
                       onChange={handleChanges}
                       required
                     />
@@ -218,7 +217,7 @@ function Login() {
                     type="email"
                     name="email"
                     placeholder="Enter your email"
-                    className="w-full p-2 rounded-lg border border-gray-400"
+                    className="w-full p-2 rounded-lg border border-gray-400 placeholder:text-gray-400"
                     onChange={handleChanges}
                     required
                   />
@@ -230,7 +229,7 @@ function Login() {
                       type="password"
                       name="password"
                       placeholder="New Password"
-                      className="w-full p-2 rounded-lg border border-gray-400"
+                      className="w-full p-2 rounded-lg border border-gray-400 placeholder:text-gray-400"
                       onChange={handleChanges}
                       required
                     />
@@ -238,7 +237,7 @@ function Login() {
                       type="password"
                       name="confirmPassword"
                       placeholder="Confirm Password"
-                      className="w-full p-2 rounded-lg border border-gray-400"
+                      className="w-full p-2 rounded-lg border border-gray-400 placeholder:text-gray-400"
                       onChange={handleChanges}
                       required
                     />

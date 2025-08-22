@@ -125,7 +125,8 @@ function ChatWindow() {
             {isOnline && <div className="text-xs text-green-700">Online</div>}
           </div>
         </div>
-        <CiSearch className="text-xl text-gray-600 cursor-pointer hover:text-blue-500" />
+        {/* search */}
+        {/* <CiSearch className="text-xl text-gray-600 cursor-pointer hover:text-blue-500" /> */}
       </div>
 
       {/* chat messages */}

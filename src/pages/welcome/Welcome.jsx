@@ -30,7 +30,7 @@ function Welcome() {
   };
 
   return (
-    <div className="relative" style={backgroundStyles}>
+    <div data-testid="welcome-container" className="relative" style={backgroundStyles}>
       <WelcomHeader
         isScrollingUp={isScrollingUp}
         setIsScrollingUp={setIsScrollingUp}

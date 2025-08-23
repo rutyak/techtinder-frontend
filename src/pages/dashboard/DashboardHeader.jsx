@@ -2,9 +2,9 @@ import { useState } from "react";
 import { FiChevronDown } from "react-icons/fi";
 import { HiOutlineInbox } from "react-icons/hi";
 import { IoIosSearch } from "react-icons/io";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import Menu from "../pages/menu/Menu";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import Menu from "../../components/Menu";
 import { RiChat1Line } from "react-icons/ri";
 
 function DashboardHeader() {
@@ -41,7 +41,7 @@ function DashboardHeader() {
         <div className="flex items-center justify-center gap-8">
           <Link to="/dashboard/requests" className="relative cursor-pointer">
             <HiOutlineInbox className="text-2xl text-gray-500 md:text-white" />
-            <span className="absolute -top-1 -right-1 bg-red-500 text-gray-500 md:text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
+            <span className="absolute -top-1 -right-1 bg-red-500 text-gray-900 md:text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
               {requests?.length}
             </span>
           </Link>

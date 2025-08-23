@@ -1,15 +1,12 @@
 import { useEffect, useState } from "react";
 
 function Herosection({ isScrollingUp, setIsScrollingUp }) {
-  const [isScrollForMenu, setIsScrollForMenu] = useState(false);
-
   useEffect(() => {
     function handleScroll() {
       const currScrollPos = window.pageYOffset;
 
       if (currScrollPos > 80) {
         setIsScrollingUp(true);
-        setIsScrollForMenu(true);
       } else {
         setIsScrollingUp(false);
       }

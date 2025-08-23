@@ -2,12 +2,12 @@ import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import { addUser } from "../../utils/userSlice";
+import { addUser } from "../utils/userSlice";
 import { useNavigate } from "react-router-dom";
 const base_url = import.meta.env.VITE_APP_BACKEND_URL;
 
-function Login() {
-  const [authView, setAuthView] = useState("login"); // login | signup | forgotEmail | resetPassword
+function Auth() {
+  const [authView, setAuthView] = useState("login"); 
   const [loginToggle, setLoginToggle] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({});
@@ -294,4 +294,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Auth;

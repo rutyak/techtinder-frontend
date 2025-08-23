@@ -1,4 +1,3 @@
-import boyImage from "../../assets/boy.jpg";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -8,7 +7,7 @@ import axios from "axios";
 
 const base_url = import.meta.env.VITE_APP_BACKEND_URL;
 
-function ChatList({ setIsProfileOpen }) {
+function ChatList() {
   const user = useSelector((state) => state.user);
   const connections = useSelector((state) => state.connections);
   const [search, setSearch] = useState("");

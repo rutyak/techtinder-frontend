@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import Login from "../auth/Login";
+import Login from "../Auth";
 import { TechTinderIcon } from "../../assets/Icons";
 
 function WelcomHeader({ isScrollingUp }) {

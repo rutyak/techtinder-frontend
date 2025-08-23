@@ -1,8 +1,7 @@
 import axios from "axios";
-import { useEffect } from "react";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-import { removeRequest } from "../../utils/requestsSlice";
+import { removeRequest } from "../utils/requestsSlice";
 
 const base_url = import.meta.env.VITE_APP_BACKEND_URL;
 

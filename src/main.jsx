@@ -9,11 +9,11 @@ import { Provider } from "react-redux";
 import store, { persistor } from "./utils/store.js";
 import { PersistGate } from "redux-persist/integration/react";
 import Dashboard from "./pages/dashboard/Dashboard.jsx";
-import Requests from "./pages/requests/Requests.jsx";
+import Requests from "./pages/Requests.jsx";
 import Profile from "./pages/profile/Profile.jsx";
 import FeedCards from "./components/FeedCard/FeedCards.jsx";
 import { GlobalProvider } from "./context/GlobalContext.jsx";
-import Premium from "./pages/premium/Premium.jsx";
+import Premium from "./pages/Premium.jsx";
 import ChatWindow from "./pages/chatpanel/ChatWindow.jsx";
 import ChatList from "./pages/chatpanel/ChatList.jsx";
 

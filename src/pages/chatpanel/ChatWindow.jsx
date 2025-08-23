@@ -1,9 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { AiOutlineSend } from "react-icons/ai";
-import { CiSearch } from "react-icons/ci";
 import chatbg from "../../assets/chatbg.png";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { HiArrowSmallLeft } from "react-icons/hi2";
 import { createSocketConnection } from "../../utils/socket";
 import axios from "axios";

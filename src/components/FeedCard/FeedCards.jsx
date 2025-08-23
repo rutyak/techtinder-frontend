@@ -3,13 +3,12 @@ import TinderCard from "react-tinder-card";
 import { RiCloseLargeFill } from "react-icons/ri";
 import { BiSolidLike } from "react-icons/bi";
 import { GoStarFill } from "react-icons/go";
-import { SiTinder } from "react-icons/si";
 import Instruction from "./Instructions";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { addFeeds, removeFeeds } from "../../utils/feedSlice";
-import { BlueTick, TechTinderIcon, TechTinderIconInner } from "../../assets/Icons";
+import { BlueTick, TechTinderIconInner } from "../../assets/Icons";
 
 const base_url = import.meta.env.VITE_APP_BACKEND_URL;
 

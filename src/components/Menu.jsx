@@ -3,8 +3,6 @@ import { useEffect, useRef } from "react";
 import {
   FiUser,
   FiLogOut,
-  FiUsers,
-  FiMessageCircle,
   FiUserPlus,
   FiLayers,
 } from "react-icons/fi";
@@ -12,7 +10,7 @@ import { MdOutlineWorkspacePremium } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
-import { removeUser } from "../../utils/userSlice";
+import { removeUser } from "../utils/userSlice";
 
 const base_url = import.meta.env.VITE_APP_BACKEND_URL;
 
@@ -66,15 +64,6 @@ function Menu({ setIsOpenDropdown }) {
         >
           <FiLayers className="text-blue-500" />
           Feeds
-        </Link>
-
-        <Link
-          className="w-full flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 transition-all"
-          to="/dashboard/connections"
-          onClick={handleMenu}
-        >
-          <FiUsers className="text-blue-500" />
-          Connections
         </Link>
 
         <Link

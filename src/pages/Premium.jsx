@@ -1,8 +1,7 @@
 import axios from "axios";
-import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addUser } from "../../utils/userSlice";
+import { addUser } from "../utils/userSlice";
 
 const base_url = import.meta.env.VITE_APP_BACKEND_URL;
 

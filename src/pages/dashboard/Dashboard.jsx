@@ -1,18 +1,16 @@
-import { Outlet, useNavigate } from "react-router-dom";
-import ChatPanel from "../chatpanel/ChatList";
-import { useEffect, useState } from "react";
+import { Outlet } from "react-router-dom";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import axios from "axios";
-import DashboardHeader from "../../components/DashboardHeader";
+import DashboardHeader from "./DashboardHeader";
 import { addConnections } from "../../utils/connectionsSlice";
 import { toast } from "react-toastify";
 import { addRequests } from "../../utils/requestsSlice";
+import ChatList from "../chatpanel/ChatList";
 
 const base_url = import.meta.env.VITE_APP_BACKEND_URL;
 
 function Dashboard() {
-  const [isProfileOpen, setIsProfileOpen] = useState(false);
-
   const dispatch = useDispatch();
 
   // it is here because we need to update count of requests
@@ -50,7 +48,7 @@ function Dashboard() {
       <div className="relative lg:fixed z-50 w-full h-[65px] lg:h-screen lg:max-w-[340px] flex flex-col border-r border-gray-200">
         <DashboardHeader />
         <div className="hidden lg:block">
-          <ChatPanel setIsProfileOpen={setIsProfileOpen} />
+          <ChatList/>
         </div>
       </div>
 

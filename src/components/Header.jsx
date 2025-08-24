@@ -4,10 +4,10 @@ import { HiOutlineInbox } from "react-icons/hi";
 import { IoIosSearch } from "react-icons/io";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import Menu from "../../components/Menu";
+import Menu from "./Menu";
 import { RiChat1Line } from "react-icons/ri";
 
-function DashboardHeader() {
+function Header() {
   const user = useSelector((state) => state.user);
 
   const requests = useSelector((state) => state.requests);
@@ -69,4 +69,4 @@ function DashboardHeader() {
   );
 }
 
-export default DashboardHeader;
+export default Header;

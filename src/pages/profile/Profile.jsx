@@ -115,7 +115,7 @@ const Profile = () => {
             <img
               src={imagePreview || user?.imageurl}
               alt="Profile"
-              className="w-28 h-28 sm:w-36 sm:h-36 rounded-full object-cover border-4 border-blue-100 object-top"
+              className="w-28 h-28 sm:w-36 sm:h-36 rounded-full object-contain border-4 border-blue-100"
             />
             {isEditing && (
               <label className="cursor-pointer px-4 py-2 border rounded-lg text-blue-500 border-blue-500 hover:bg-blue-50 text-sm">

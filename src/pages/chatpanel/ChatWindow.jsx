@@ -108,13 +108,14 @@ function ChatWindow() {
       {/* header */}
       <div className="flex items-center justify-between px-[20px] bg-white shadow-xl h-16">
         <div className="flex items-center gap-4">
-          <HiArrowSmallLeft
-            className="block lg:hidden text-2xl cursor-pointer text-gray-700 hover:text-blue-500"
-            onClick={() => navigate("/dashboard")}
-          />
+            <HiArrowSmallLeft
+              data-testid="back"
+              className="block lg:hidden text-2xl cursor-pointer text-gray-700 hover:text-blue-500"
+              onClick={() => navigate("/dashboard")}
+            />
           <img
             src={targetUser.imageurl}
-            alt="user-image"
+            alt="targetuser-image"
             className="w-11 h-11 rounded-full object-cover border-2 border-blue-500"
           />
           <div className="flex flex-col">
@@ -177,6 +178,7 @@ function ChatWindow() {
           />
 
           <button
+            data-testid="send"
             onClick={handleSend}
             className="p-3 rounded-full text-blue-500 hover:text-blue-600 transition"
           >

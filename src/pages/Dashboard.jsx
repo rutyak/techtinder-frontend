@@ -2,11 +2,11 @@ import { Outlet } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import axios from "axios";
-import DashboardHeader from "./DashboardHeader";
-import { addConnections } from "../../utils/connectionsSlice";
+import Header from "../components/Header";
+import { addConnections } from "../utils/connectionsSlice";
 import { toast } from "react-toastify";
-import { addRequests } from "../../utils/requestsSlice";
-import ChatList from "../chatpanel/ChatList";
+import { addRequests } from "../utils/requestsSlice";
+import ChatList from "./chatpanel/ChatList";
 
 const base_url = import.meta.env.VITE_APP_BACKEND_URL;
 
@@ -46,9 +46,9 @@ function Dashboard() {
   return (
     <div className="h-[100dvh] flex flex-col lg:flex-row items-center">
       <div className="relative lg:fixed z-50 w-full h-[65px] lg:h-screen lg:max-w-[340px] flex flex-col border-r border-gray-200">
-        <DashboardHeader />
+        <Header />
         <div className="hidden lg:block">
-          <ChatList/>
+          <ChatList />
         </div>
       </div>
 

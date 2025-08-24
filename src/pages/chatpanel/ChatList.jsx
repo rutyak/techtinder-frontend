@@ -8,10 +8,7 @@ import axios from "axios";
 const base_url = import.meta.env.VITE_APP_BACKEND_URL;
 
 function ChatList() {
-  const user = useSelector((state) => state.user);
   const connections = useSelector((state) => state.connections);
-  const [search, setSearch] = useState("");
-  const [isChatWindowOpen, setIsChatWindowOpen] = useState(false);
 
   const navigate = useNavigate();
 
@@ -53,6 +50,7 @@ function ChatList() {
         {connections && connections.length > 0 ? (
           connections.map((person) => (
             <div
+              data-testid="targetUser"
               key={person._id}
               className="flex justify-between gap-3 p-3 rounded-lg hover:bg-blue-100 cursor-pointer transition-colors"
               onClick={() =>

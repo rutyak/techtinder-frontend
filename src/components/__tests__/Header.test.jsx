@@ -1,25 +1,33 @@
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
-import DashboardHeader from "../DashboardHeader";
+import DashboardHeader from "../Header";
 import userEvent from "@testing-library/user-event";
 import { render, screen } from "@testing-library/react";
-import configureStore from 'redux-mock-store'
-
-const mockStore = configureStore([]);
+import { configureStore } from "@reduxjs/toolkit";
 
 describe("DashboardHeader", () => {
-  let store;
   const user = userEvent.setup();
 
-  beforeEach(() => {
-    store = mockStore({
-      user: {
-        firstname: "Narendra",
-        lastname: "Modi",
+  //create store
+  const createStore = (state = {}) => {
+    return configureStore({
+      reducer: {
+        user: (state = {}) => state,
+        requests: (state = {}) => state,
       },
-      requests: [{ id: 1 }, { id: 2 }, { id: 3 }],
+      preloadedState: state,
     });
+  };
+
+  //store
+  const store = createStore({
+    user: {
+      firstname: "Narendra",
+      lastname: "Modi",
+    },
+    requests: [{ id: 1 }, { id: 2 }],
   });
+
   const renderComponent = () => {
     return render(
       <Provider store={store}>
@@ -38,7 +46,7 @@ describe("DashboardHeader", () => {
 
   it("display correct request count badge", () => {
     renderComponent();
-    expectq(screen.getByText("3")).toBeInTheDocument();
+    expect(screen.getByText("2")).toBeInTheDocument();
   });
 
   it("toggle dropdown menu on user area click", async () => {

@@ -8,7 +8,7 @@ import { ToastContainer } from "react-toastify";
 import { Provider } from "react-redux";
 import store, { persistor } from "./utils/store.js";
 import { PersistGate } from "redux-persist/integration/react";
-import Dashboard from "./pages/dashboard/Dashboard.jsx";
+import Dashboard from "./pages/Dashboard.jsx";
 import Requests from "./pages/Requests.jsx";
 import Profile from "./pages/profile/Profile.jsx";
 import FeedCards from "./components/FeedCard/FeedCards.jsx";

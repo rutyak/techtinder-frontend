@@ -13,7 +13,6 @@ const base_url = import.meta.env.VITE_APP_BACKEND_URL;
 function Dashboard() {
   const dispatch = useDispatch();
 
-  // it is here because we need to update count of requests
   async function getRequests() {
     try {
       const res = await axios.get(`${base_url}/user/requests`, {
@@ -21,6 +20,7 @@ function Dashboard() {
       });
       dispatch(addRequests(res.data?.requests));
     } catch (error) {
+      toast.error(error.data?.message || "Internal server error");
       console.error(error);
     }
   }
@@ -30,10 +30,9 @@ function Dashboard() {
       const res = await axios.get(`${base_url}/user/connections`, {
         withCredentials: true,
       });
-
       dispatch(addConnections(res.data?.data));
     } catch (error) {
-      toast.error(error.data?.message);
+      toast.error(error.data?.message || "Internal server error");
       consol.error(error);
     }
   }
@@ -44,7 +43,10 @@ function Dashboard() {
   }, []);
 
   return (
-    <div className="h-[100dvh] flex flex-col lg:flex-row items-center">
+    <div
+      data-testid="dashboard"
+      className="h-[100dvh] flex flex-col lg:flex-row items-center"
+    >
       <div className="relative lg:fixed z-50 w-full h-[65px] lg:h-screen lg:max-w-[340px] flex flex-col border-r border-gray-200">
         <Header />
         <div className="hidden lg:block">

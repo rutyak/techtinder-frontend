@@ -64,7 +64,6 @@ const Requests = () => {
                 key={req._id}
                 className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 border rounded-xl p-5 bg-white shadow-lg hover:shadow-md transition"
               >
-                {/* Avatar + Details */}
                 <div className="flex items-center gap-4 flex-1">
                   <img
                     src={req.fromUserId?.imageurl}

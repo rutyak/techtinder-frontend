@@ -1,9 +1,7 @@
-import {
-  FacebookIcon,
-  InstaIcon,
-  TwitterIcon,
-  YouTubeIcon,
-} from "../../assets/Icons";
+import FacebookIcon from "../../assets/icons/FacebookIcon.svg";
+import InstaIcon from "../../assets/icons/InstaIcon.svg";
+import TwitterIcon from "../../assets/icons/TwitterIcon.svg";
+import YouTubeIcon from "../../assets/icons/YouTubeIcon.svg";
 import { Link } from "react-router-dom";
 
 function Footer() {
@@ -20,28 +18,28 @@ function Footer() {
             aria-label="Facebook"
             className="p-2 rounded-full hover:bg-gray-700"
           >
-            <FacebookIcon className="w-6 h-6 hover:text-white" />
+            <img src={FacebookIcon} alt="FacebookIcon" className="w-6 h-6 hover:text-white" />
           </a>
           <a
             href="#"
             aria-label="Twitter"
             className="p-2 rounded-full hover:bg-gray-700"
           >
-            <TwitterIcon className="w-6 h-6 hover:text-white" />
+            <img src={TwitterIcon} alt="TwitterIcon" className="w-6 h-6 hover:text-white" />
           </a>
           <a
             href="#"
             aria-label="Instagram"
             className="p-2 rounded-full hover:bg-gray-700"
           >
-            <InstaIcon className="w-6 h-6 hover:text-white" />
+            <img src={InstaIcon} alt="InstaIcon" className="w-6 h-6 hover:text-white" />
           </a>
           <a
             href="#"
             aria-label="YouTube"
             className="p-2 rounded-full hover:bg-gray-700"
           >
-            <YouTubeIcon className="w-6 h-6 hover:text-white" />
+            <img src={YouTubeIcon} alt="youtubeIcon" className="w-6 h-6 hover:text-white" />
           </a>
         </div>
 

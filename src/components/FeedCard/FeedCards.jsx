@@ -8,7 +8,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { addFeeds, removeFeeds } from "../../utils/feedSlice";
-import { BlueTick, TechTinderIconInner } from "../../assets/Icons";
+import TechTinderIconInner from "../../assets/icons/TechTinderIconInner";
+import BlueTick from "../../assets/icons/BlueTick.svg";
 
 const base_url = import.meta.env.VITE_APP_BACKEND_URL;
 
@@ -53,12 +54,10 @@ function FeedCards({
     }
   }, []);
 
-  // Keep refs in sync with people array
   useEffect(() => {
     cardRefs.current = people.map(() => createRef());
   }, [people]);
 
-  // Update when profile prop changes
   useEffect(() => {
     if (profile) {
       setPeople([profile]);
@@ -104,7 +103,7 @@ function FeedCards({
   return (
     <div className="h-full w-full flex flex-col items-center justify-between sm:gap-6">
       {showLabels && !isPreview && (
-        <TechTinderIconInner className="h-8 w-8 text-gray-300 my-3 hidden sm:block" />
+        <img src={TechTinderIconInner} alt="techTinderIcon" className="h-8 w-8 text-gray-300 my-3 hidden sm:block" />
       )}
 
       <div className="relative w-[95%] sm:w-[310px] h-full sm:h-[420px] flex justify-center">
@@ -121,7 +120,7 @@ function FeedCards({
               <div className="bg-black/40 p-3 rounded-lg">
                 <h2 className="text-xl font-bold flex items-center gap-2">
                   {person?.firstname} {person?.lastname}, {person?.age}
-                  {person?.isPremium && <BlueTick />}
+                  {person?.isPremium && <img src={BlueTick} alt="BlueTick"/>}
                 </h2>
                 {showLabels && <p className="text-sm">{person.job}</p>}
                 {person?.isPremium && (

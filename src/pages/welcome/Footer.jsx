@@ -1,7 +1,7 @@
-import FacebookIcon from "../../assets/icons/FacebookIcon.svg";
-import InstaIcon from "../../assets/icons/InstaIcon.svg";
-import TwitterIcon from "../../assets/icons/TwitterIcon.svg";
-import YouTubeIcon from "../../assets/icons/YouTubeIcon.svg";
+import { FaFacebook } from "react-icons/fa";
+import { FaSquareXTwitter } from "react-icons/fa6";
+import { IoLogoYoutube } from "react-icons/io";
+import { AiFillInstagram } from "react-icons/ai";
 import { Link } from "react-router-dom";
 
 function Footer() {
@@ -18,28 +18,28 @@ function Footer() {
             aria-label="Facebook"
             className="p-2 rounded-full hover:bg-gray-700"
           >
-            <img src={FacebookIcon} alt="FacebookIcon" className="w-6 h-6 hover:text-white" />
+            <FaFacebook className="w-6 h-6 text-gray-500 hover:text-white" />
           </a>
           <a
             href="#"
             aria-label="Twitter"
             className="p-2 rounded-full hover:bg-gray-700"
           >
-            <img src={TwitterIcon} alt="TwitterIcon" className="w-6 h-6 hover:text-white" />
+            <FaSquareXTwitter className="w-6 h-6 text-gray-500 hover:text-white" />
           </a>
           <a
             href="#"
             aria-label="Instagram"
             className="p-2 rounded-full hover:bg-gray-700"
           >
-            <img src={InstaIcon} alt="InstaIcon" className="w-6 h-6 hover:text-white" />
+            <IoLogoYoutube className="w-6 h-6 text-gray-500 hover:text-white" />
           </a>
           <a
             href="#"
             aria-label="YouTube"
             className="p-2 rounded-full hover:bg-gray-700"
           >
-            <img src={YouTubeIcon} alt="youtubeIcon" className="w-6 h-6 hover:text-white" />
+            <AiFillInstagram className="w-6 h-6 text-gray-500 hover:text-white" />
           </a>
         </div>
 

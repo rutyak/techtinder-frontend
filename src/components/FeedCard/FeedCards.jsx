@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { addFeeds, removeFeeds } from "../../utils/feedSlice";
-import TechTinderIconInner from "../../assets/icons/TechTinderIconInner";
+import TechTinderIconInner from "../../assets/icons/TechTinderIconInner.svg";
 import BlueTick from "../../assets/icons/BlueTick.svg";
 
 const base_url = import.meta.env.VITE_APP_BACKEND_URL;

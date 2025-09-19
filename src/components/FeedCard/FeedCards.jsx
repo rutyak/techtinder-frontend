@@ -19,13 +19,9 @@ function FeedCards({
   showLabels = true,
   isPreview = false,
 }) {
-  console.log("profile from preview: ", profile);
-
   const feeds = useSelector((state) => state.feeds);
 
   const [people, setPeople] = useState(profile ? [profile] : []);
-
-  console.log("people from profile", people);
 
   const cardRefs = useRef([]);
   const dispatch = useDispatch();
@@ -101,9 +97,16 @@ function FeedCards({
   }
 
   return (
-    <div className="h-full w-full flex flex-col items-center justify-between sm:gap-6">
+    <div
+      data-testid="feedcard"
+      className="h-full w-full flex flex-col items-center justify-between sm:gap-6"
+    >
       {showLabels && !isPreview && (
-        <img src={TechTinderIconInner} alt="techTinderIcon" className="h-8 w-8 text-gray-300 my-3 hidden sm:block" />
+        <img
+          src={TechTinderIconInner}
+          alt="techTinderIcon"
+          className="h-8 w-8 text-gray-300 my-3 hidden sm:block"
+        />
       )}
 
       <div className="relative w-[95%] sm:w-[310px] h-full sm:h-[420px] flex justify-center">
@@ -120,7 +123,7 @@ function FeedCards({
               <div className="bg-black/40 p-3 rounded-lg">
                 <h2 className="text-xl font-bold flex items-center gap-2">
                   {person?.firstname} {person?.lastname}, {person?.age}
-                  {person?.isPremium && <img src={BlueTick} alt="BlueTick"/>}
+                  {person?.isPremium && <img src={BlueTick} alt="BlueTick" />}
                 </h2>
                 {showLabels && <p className="text-sm">{person.job}</p>}
                 {person?.isPremium && (

@@ -9,7 +9,10 @@ import { FaStar } from "react-icons/fa6";
 
 const Instruction = () => {
   return (
-    <div className="flex flex-wrap justify-between gap-12 mb-3 hidden sm:flex">
+    <div
+      data-testid="instructions"
+      className="flex flex-wrap justify-between gap-12 mb-3 hidden sm:flex"
+    >
       <div className="flex items-center space-x-1 text-gray-300">
         <FaArrowLeft className="text-lg" />
         <span>NOPE</span>

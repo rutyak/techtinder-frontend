@@ -5,9 +5,11 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { CgProfile } from "react-icons/cg";
 
 function Sidebar() {
-
   return (
-    <div className="w-14 h-screen bg-gradient-to-b from-indigo-900 to-indigo-800 flex flex-col justify-between items-center py-6 border-indigo-950 shadow-xl">
+    <div
+      data-testid="sidebar"
+      className="w-14 h-screen bg-gradient-to-b from-indigo-900 to-indigo-800 flex flex-col justify-between items-center py-6 border-indigo-950 shadow-xl"
+    >
       <div className="flex flex-col items-center gap-8">
         <button className="p-2 rounded-lg bg-blue-700 transition-all duration-300 hover:scale-110">
           <IoMenuOutline className="text-xl text-white hover:text-white" />

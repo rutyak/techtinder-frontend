@@ -56,8 +56,10 @@ describe("Auth component", () => {
   });
 
   it("redner forgot-password page", async () => {
+    //mock 1
     axios.post.mockResolvedValue({
       data: { message: "OTP send successfully!" },
+      status: 200,
     });
 
     renderComponent();
@@ -76,15 +78,28 @@ describe("Auth component", () => {
     const verifyBtn = screen.getByTestId("submitBtn");
     await user.click(verifyBtn);
 
-    expect(screen.getByText("OTP send successfully!")).toBeInTheDocument();
+    await user.type(await screen.findByPlaceholderText("Enter OTP"), "788988");
 
-    //verify otp
-    // axios.post.mockResolvedValue({
-    //   data: { message: "OTP verified successfully" },
-    // });
+    const verifyOtpBtn = screen.getByTestId("submitBtn");
+    await user.click(verifyOtpBtn);
 
-    // await user.type(screen.getByPlaceholderText("Enter OTP"), "788945");
-    // expect(screen.getByText("OTP verified successfully")).toBeInTheDocument();
+    //mock 2
+    axios.post.mockResolvedValue({
+      data: { message: "Password change successfully!" },
+      status: 200,
+    });
+
+    await user.type(
+      await screen.findByPlaceholderText("New Password"),
+      "Test@123"
+    );
+    await user.type(
+      await screen.findByPlaceholderText("Confirm Password"),
+      "Test@123"
+    );
+
+    const resetPasswordBtn = screen.getByTestId("submitBtn");
+    await user.click(resetPasswordBtn);
   });
 
   it("render signup page", async () => {

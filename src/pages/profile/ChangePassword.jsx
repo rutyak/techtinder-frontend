@@ -27,7 +27,7 @@ function ChangePassword({ showPasswordFields, setShowPasswordFields }) {
       }
 
       const res = await axios.patch(
-        base_url + "/forgot/password",
+        base_url + "/change-password",
         { oldPassword, newPassword, confirmPassword },
         { withCredentials: true }
       );

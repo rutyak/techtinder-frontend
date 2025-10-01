@@ -12,7 +12,7 @@ function SkillTags({ tags, setTags }) {
   }
 
   function removeTag(index) {
-    setTags(tags.filter((_, i) => i !== index));
+    setTags(tags?.filter((_, i) => i !== index));
   }
 
   return (
@@ -20,7 +20,7 @@ function SkillTags({ tags, setTags }) {
       <label className="block text-sm text-gray-600 mb-1">Skills</label>
 
       <div className="flex flex-wrap gap-2 border p-2 rounded">
-        {tags.map((tag, index) => (
+        {tags?.map((tag, index) => (
           <div
             key={index}
             className="flex items-center bg-blue-100 text-blue-800 px-2 py-1 rounded-full"

@@ -2,8 +2,10 @@ import Profile from "../Profile";
 import { render, screen } from "@testing-library/react";
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
+import userEvent from "@testing-library/user-event";
 
 describe("Profile", () => {
+  const user = userEvent.setup();
   const mockUser = {
     _id: 123,
     firstname: "Jon",
@@ -14,18 +16,18 @@ describe("Profile", () => {
     skills: ["HTML", "CSS", "JS"],
   };
 
-  const createStore = (preloadedState = {}) => {
+  const store = () => {
     return configureStore({
       reducer: {
         user: (state = {}) => state,
       },
-      preloadedState: preloadedState,
+      preloadedState: {
+        user: mockUser,
+      },
     });
   };
 
   const renderComponent = () => {
-    const store = createStore(mockUser);
-
     return render(
       <Provider store={store}>
         <Profile />
@@ -37,5 +39,15 @@ describe("Profile", () => {
     renderComponent();
 
     expect(screen.getByText("My Profile")).toBeInTheDocument();
+  });
+
+  it("render profile edit", async () => {
+    renderComponent();
+
+    const editBtn = screen.getByRole("button", { name: /Edit/i });
+
+    await user.click(editBtn);
+
+    expect(screen.getByDisplayValue("Jon")).toBeInTheDocument();
   });
 });

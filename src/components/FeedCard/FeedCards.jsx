@@ -157,18 +157,21 @@ function FeedCards({
       {showActions && (
         <div className="flex gap-8 mt-6 mb-4">
           <button
+            aria-label="left swipe"
             onClick={() => swipe("left")}
             className="p-4 rounded-full bg-red-100 text-red-500 shadow-lg hover:scale-110 transition"
           >
             <RiCloseLargeFill size={28} />
           </button>
           <button
+            aria-label="up-swipe"
             onClick={() => swipe("up")}
             className="p-4 rounded-full bg-blue-100 text-blue-500 shadow-lg hover:scale-110 transition"
           >
             <GoStarFill size={28} />
           </button>
           <button
+            aria-label="right-swipe"
             onClick={() => swipe("right")}
             className="p-4 rounded-full bg-green-100 text-green-500 shadow-lg hover:scale-110 transition"
           >

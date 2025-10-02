@@ -48,25 +48,41 @@ describe("Premium", () => {
     expect(screen.getByText("You are a Premium Member!")).toBeInTheDocument();
   });
 
-//   it("subscribe now button click", async () => {
-//     const res = {
-//       data: {
-//         payment: {
-//           keyId: "test_key",
-//           amount: 1000,
-//           currency: "INR",
-//           orderId: "123",
-//           notes: { name: "John" },
-//         },
-//       },
-//     };
-//     axios.post.mockResolvedValue({ data: { payment: res } });
+  it("subscribe now button click", async () => {
+    const res = {
+      data: {
+        payment: {
+          keyId: "test_key",
+          amount: 1000,
+          currency: "INR",
+          orderId: "123",
+          notes: { firstname: "John" },
+        },
+      },
+    };
 
-//     renderComponent({ isPremium: false });
+    const openMock = vi.fn();
+    global.Razorpay = vi.fn().mockImplementation(() => ({
+      open: openMock,
+    }));
 
-//     const subscribeBtn = screen.getByRole("button", { name: /Subscribe Now/i });
-//     await user.click(subscribeBtn);
+    renderComponent({ isPremium: false });
 
-//     await handleSubscribeClick("Gold");
-//   });
+    axios.post.mockResolvedValue(res);
+
+    const subscribeBtn = screen.getAllByRole("button", {
+      name: /Subscribe Now/i,
+    });
+    console.log("subscribeBtn's: ", subscribeBtn);
+    await user.click(subscribeBtn[0]);
+
+    expect(axios.post).toHaveBeenCalledWith(
+      expect.stringContaining("/payment/create"),
+      expect.anything(),
+      expect.anything()
+    );
+
+    expect(global.Razorpay).toHaveBeenCalled();
+    expect(global.Razorpay().open).toHaveBeenCalled();
+  });
 });

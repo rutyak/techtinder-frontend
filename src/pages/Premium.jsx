@@ -94,7 +94,7 @@ const Premium = () => {
     return (
       <div className="h-full lg:h-screen flex items-center justify-center bg-gradient-to-br from-purple-200 via-pink-100 to-indigo-200">
         <div className="bg-white shadow-2xl rounded-3xl mx-4 sm:mx-8 px-6 py-9 sm:p-14 text-center max-w-xl relative overflow-hidden">
-          {/* Decorative Premium Glow */}
+          {/* Premium Glow */}
           <div className="absolute -top-12 -right-12 w-48 h-48 bg-purple-400 opacity-30 rounded-full blur-3xl"></div>
           <div className="absolute -bottom-12 -left-12 w-48 h-48 bg-pink-400 opacity-30 rounded-full blur-3xl"></div>
 

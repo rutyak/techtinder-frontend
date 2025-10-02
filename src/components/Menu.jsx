@@ -1,11 +1,6 @@
 import axios from "axios";
 import { useEffect, useRef } from "react";
-import {
-  FiUser,
-  FiLogOut,
-  FiUserPlus,
-  FiLayers,
-} from "react-icons/fi";
+import { FiUser, FiLogOut, FiUserPlus, FiLayers } from "react-icons/fi";
 import { MdOutlineWorkspacePremium } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
